@@ -43,7 +43,7 @@ export function SiteHeader() {
           </div>
           <Sheet open={open} onOpenChange={setOpen}>
             <SheetTrigger asChild>
-              <Button variant="ghost" size="icon" className="lg:hidden" aria-label="Open menu">
+              <Button variant="ghost" size="icon" className="lg:hidden" aria-label={open ? "Close menu" : "Open menu"}>
                 <Menu className="h-6 w-6" />
               </Button>
             </SheetTrigger>
@@ -64,16 +64,16 @@ export function SiteHeader() {
                   />
                 ))}
               </nav>
+              <div className="mt-4 flex flex-col gap-3 border-t border-border px-4 pt-5">
+                <Button variant="outline" asChild className="h-11 border-primary text-primary hover:text-primary">
+                  <NavLink target={routes.login} onSelect={() => setOpen(false)} />
+                </Button>
+                <Button asChild className="h-11">
+                  <NavLink target={routes.register} onSelect={() => setOpen(false)} />
+                </Button>
+              </div>
             </SheetContent>
           </Sheet>
-        </div>
-        <div className="grid grid-cols-2 gap-3 pb-3 lg:hidden">
-          <Button variant="outline" asChild className="border-primary text-primary hover:text-primary">
-            <NavLink target={routes.login} />
-          </Button>
-          <Button asChild>
-            <NavLink target={routes.register} />
-          </Button>
         </div>
       </div>
     </header>
