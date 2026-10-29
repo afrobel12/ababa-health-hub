@@ -29,14 +29,14 @@ function SectionHead({ title, tagline }: { title: string; tagline: string }) {
 
 export function HowItWorks() {
   return (
-    <section aria-label="How It Works" className="mx-auto max-w-7xl px-4 pt-16 sm:px-6 lg:px-8">
+    <section aria-label="How It Works" className="mx-auto max-w-7xl px-4 pt-12 sm:px-6 sm:pt-16 lg:px-8">
       <SectionHead title="How It Works" tagline="Simple steps to access better healthcare" />
-      <ol className="grid gap-5 md:grid-cols-3">
+      <ol className="grid gap-3 sm:gap-5 md:grid-cols-3">
         {steps.map((s, i) => (
-          <li key={s.title} className="flex gap-4 rounded-2xl border border-border bg-card p-6 shadow-card transition-shadow hover:shadow-float">
+          <li key={s.title} className="flex gap-3 rounded-2xl border border-border bg-card p-4 sm:gap-4 sm:p-6 shadow-card transition-shadow hover:shadow-float">
             <span className="grid h-7 w-7 shrink-0 place-items-center rounded-full bg-primary text-sm font-bold text-primary-foreground">{i + 1}</span>
-            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-accent text-primary">
-              <s.icon className="h-7 w-7" aria-hidden />
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full sm:h-14 sm:w-14 bg-accent text-primary">
+              <s.icon className="h-5 w-5 sm:h-7 sm:w-7" aria-hidden />
             </span>
             <div className="min-w-0">
               <h3 className="font-bold text-navy">{s.title}</h3>
@@ -51,13 +51,13 @@ export function HowItWorks() {
 
 export function KeyFeatures() {
   return (
-    <section aria-label="Key Features" className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+    <section aria-label="Key Features" className="mx-auto max-w-7xl px-4 py-12 sm:px-6 sm:py-16 lg:px-8">
       <SectionHead title="Key Features" tagline="A smarter way to manage your healthcare" />
-      <div className="grid gap-5 md:grid-cols-3">
+      <div className="grid gap-3 sm:gap-5 md:grid-cols-3">
         {features.map((f) => (
-          <article key={f.title} className="flex gap-4 rounded-2xl border border-border bg-card p-6 shadow-card transition-all hover:-translate-y-0.5 hover:border-teal/40 hover:shadow-float">
-            <span className="grid h-14 w-14 shrink-0 place-items-center rounded-full bg-teal-soft text-teal">
-              <f.icon className="h-7 w-7" aria-hidden />
+          <article key={f.title} className="flex gap-3 rounded-2xl border border-border bg-card p-4 sm:gap-4 sm:p-6 shadow-card transition-all hover:-translate-y-0.5 hover:border-teal/40 hover:shadow-float">
+            <span className="grid h-11 w-11 shrink-0 place-items-center rounded-full sm:h-14 sm:w-14 bg-teal-soft text-teal">
+              <f.icon className="h-5 w-5 sm:h-7 sm:w-7" aria-hidden />
             </span>
             <div className="min-w-0">
               <h3 className="font-bold text-navy">{f.title}</h3>

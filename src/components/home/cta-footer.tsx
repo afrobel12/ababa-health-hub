@@ -29,8 +29,8 @@ export function FinalCta() {
 export function SiteFooter() {
   return (
     <footer className="bg-navy text-navy-foreground">
-      <div className="mx-auto grid max-w-7xl gap-10 px-4 py-12 sm:px-6 md:grid-cols-[1.4fr_repeat(4,1fr)] lg:px-8">
-        <div>
+      <div className="mx-auto grid max-w-7xl grid-cols-2 gap-x-6 gap-y-8 px-4 py-10 sm:px-6 md:grid-cols-[1.4fr_repeat(4,1fr)] md:gap-10 md:py-12 lg:px-8">
+        <div className="col-span-2 md:col-span-1">
           <Brand inverted />
           <p className="mt-4 text-sm opacity-75">Better healthcare. A healthier Ethiopia.</p>
         </div>

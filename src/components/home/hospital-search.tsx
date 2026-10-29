@@ -23,7 +23,8 @@ export function HospitalSearch() {
     toast("Search coming soon", { description: text });
   };
 
-  const field = "h-12 bg-background";
+  const field = "h-12 w-full bg-background";
+  const labelCls = "flex h-5 items-center gap-1.5 leading-none";
 
   return (
     <section aria-labelledby="search-title" className="relative z-10 mx-auto -mt-2 max-w-7xl px-4 sm:px-6 lg:-mt-10 lg:px-8">
@@ -37,28 +38,30 @@ export function HospitalSearch() {
             <p className="text-sm text-muted-foreground">Search participating hospitals across Ethiopia.</p>
           </div>
         </div>
-        <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_1fr_1fr_auto] lg:items-end">
+        <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_1fr_1fr_auto] lg:items-start">
           <div className="space-y-2">
-            <Label htmlFor="city" className="flex items-center gap-1.5"><MapPin className="h-4 w-4 text-primary" aria-hidden />City or Region</Label>
+            <Label htmlFor="city" className={labelCls}><MapPin className="h-4 w-4 text-primary" aria-hidden />City or Region</Label>
             <Select value={f.city} onValueChange={(city) => setF({ ...f, city })}>
               <SelectTrigger id="city" className={field}><SelectValue placeholder="Select city or region" /></SelectTrigger>
               <SelectContent>{cityOptions.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="dept" className="flex items-center gap-1.5"><Stethoscope className="h-4 w-4 text-primary" aria-hidden />Department</Label>
+            <Label htmlFor="dept" className={labelCls}><Stethoscope className="h-4 w-4 text-primary" aria-hidden />Department</Label>
             <Select value={f.department} onValueChange={(department) => setF({ ...f, department })}>
               <SelectTrigger id="dept" className={field}><SelectValue placeholder="Select department" /></SelectTrigger>
               <SelectContent>{departmentOptions.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
             </Select>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="hname" className="flex items-center gap-1.5"><Building2 className="h-4 w-4 text-primary" aria-hidden />Hospital name (optional)</Label>
+            <Label htmlFor="hname" className={labelCls}><Building2 className="h-4 w-4 text-primary" aria-hidden />Hospital name (optional)</Label>
             <Input id="hname" className={field} placeholder="Enter hospital name" value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} />
           </div>
-          <Button type="submit" size="lg" className="h-12 w-full px-7 text-base lg:w-auto">
-            <Search className="h-5 w-5" aria-hidden /> Search Hospitals
-          </Button>
+          <div className="lg:pt-7">
+            <Button type="submit" size="lg" className="h-12 w-full px-7 text-base lg:w-auto">
+              <Search className="h-5 w-5" aria-hidden /> Search Hospitals
+            </Button>
+          </div>
         </div>
         {msg && (
           <p role={msg.kind === "error" ? "alert" : "status"} className={msg.kind === "error" ? "mt-4 text-sm font-medium text-destructive" : "mt-4 rounded-lg bg-accent px-4 py-3 text-sm text-navy"}>
