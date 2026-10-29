@@ -73,18 +73,18 @@ export function KeyFeatures() {
 export function ForHospitals() {
   return (
     <section aria-labelledby="partner-title" className="bg-teal-soft">
-      <div className="mx-auto grid max-w-7xl lg:grid-cols-2">
+      <div className="mx-auto grid max-w-7xl grid-cols-1 lg:grid-cols-2">
         <img src={buildingImg} alt="Exterior of a modern hospital building surrounded by trees" width={1280} height={800} loading="lazy" className="h-64 w-full object-cover sm:h-80 lg:h-full" />
-        <div className="px-4 py-12 sm:px-8 lg:px-12 lg:py-16">
+        <div className="min-w-0 px-4 py-12 sm:px-8 lg:px-12 lg:py-16">
           <p className="text-xs font-bold tracking-[0.25em] text-teal">PARTNER WITH US</p>
-          <h2 id="partner-title" className="mt-3 text-3xl font-extrabold leading-tight text-navy sm:text-4xl">
+          <h2 id="partner-title" className="mt-3 text-2xl font-extrabold leading-tight text-navy sm:text-4xl">
             Let's build a stronger healthcare system for Ethiopia together.
           </h2>
           <p className="mt-4 leading-relaxed text-muted-foreground">
             Join the Ethiopian Healthcare Management System and help patients discover your hospital, request
             appointments and access better-coordinated healthcare services.
           </p>
-          <Button asChild size="lg" className="mt-7 h-12 bg-teal px-7 text-base text-teal-foreground hover:bg-teal/90">
+          <Button asChild size="lg" className="mt-7 h-auto min-h-12 whitespace-normal bg-teal px-6 text-base text-teal-foreground hover:bg-teal/90">
             <NavLink target={{ ...routes.forHospitals, label: "Hospital Partnership" }}>
               Explore Hospital Partnership <ArrowRight className="h-5 w-5" aria-hidden />
             </NavLink>
