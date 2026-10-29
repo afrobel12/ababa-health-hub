@@ -51,7 +51,7 @@ export function NavLink({
   className?: string;
   children?: ReactNode;
   onSelect?: () => void;
-  "aria-current"?: "page";
+  "aria-current"?: "page" | undefined;
 }) {
   const open = useComingSoon();
   if (target.implemented) {
