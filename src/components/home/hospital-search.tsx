@@ -39,21 +39,21 @@ export function HospitalSearch() {
           </div>
         </div>
         <div className="mt-6 grid gap-4 lg:grid-cols-[1fr_1fr_1fr_auto] lg:items-start">
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="city" className={labelCls}><MapPin className="h-4 w-4 text-primary" aria-hidden />City or Region</Label>
             <Select value={f.city} onValueChange={(city) => setF({ ...f, city })}>
               <SelectTrigger id="city" className={field}><SelectValue placeholder="Select city or region" /></SelectTrigger>
               <SelectContent>{cityOptions.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
             </Select>
           </div>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="dept" className={labelCls}><Stethoscope className="h-4 w-4 text-primary" aria-hidden />Department</Label>
             <Select value={f.department} onValueChange={(department) => setF({ ...f, department })}>
               <SelectTrigger id="dept" className={field}><SelectValue placeholder="Select department" /></SelectTrigger>
               <SelectContent>{departmentOptions.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}</SelectContent>
             </Select>
           </div>
-          <div className="space-y-2">
+          <div className="flex flex-col gap-2">
             <Label htmlFor="hname" className={labelCls}><Building2 className="h-4 w-4 text-primary" aria-hidden />Hospital name (optional)</Label>
             <Input id="hname" className={field} placeholder="Enter hospital name" value={f.name} onChange={(e) => setF({ ...f, name: e.target.value })} />
           </div>
