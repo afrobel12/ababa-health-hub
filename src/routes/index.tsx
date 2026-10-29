@@ -1,24 +1,38 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { ComingSoonProvider } from "@/components/home/coming-soon";
+import { SiteHeader } from "@/components/home/site-header";
+import { Hero } from "@/components/home/hero";
+import { HospitalSearch } from "@/components/home/hospital-search";
+import { ForHospitals, HowItWorks, KeyFeatures } from "@/components/home/info-sections";
+import { FinalCta, SiteFooter } from "@/components/home/cta-footer";
 
-// No head() here: the home route inherits title/description/og/twitter from
-// __root.tsx, and ships no og:image so serve-time hosting can inject the
-// project's social preview (explicit og:image or latest screenshot).
 export const Route = createFileRoute("/")({
+  head: () => ({
+    meta: [
+      { title: "Find Hospitals in Ethiopia | Ethiopian Healthcare Management System" },
+      { name: "description", content: "Search participating hospitals across Ethiopia, explore appointments and manage your bookings on one healthcare platform." },
+      { property: "og:title", content: "Ethiopian Healthcare Management System" },
+      { property: "og:description", content: "Find the healthcare you need, when you need it — participating hospitals across Ethiopia." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary_large_image" },
+    ],
+  }),
   component: Index,
 });
 
-// IMPORTANT: Replace this placeholder. See ./README.md for routing conventions.
 function Index() {
   return (
-    <div
-      className="flex min-h-screen items-center justify-center"
-      style={{ backgroundColor: "#fcfbf8" }}
-    >
-      <img
-        data-lovable-blank-page-placeholder="REMOVE_THIS"
-        src="https://cdn.gpteng.co/blank-app-v1.svg"
-        alt="Your app will live here!"
-      />
-    </div>
+    <ComingSoonProvider>
+      <SiteHeader />
+      <main>
+        <Hero />
+        <HospitalSearch />
+        <HowItWorks />
+        <KeyFeatures />
+        <ForHospitals />
+        <FinalCta />
+      </main>
+      <SiteFooter />
+    </ComingSoonProvider>
   );
 }
