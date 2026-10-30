@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu } from "lucide-react";
-import { Link } from "@tanstack/react-router";
+import { Link, useRouterState } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import { mainNav, routes } from "@/config/navigation";
@@ -10,6 +10,8 @@ import { NavLink } from "./coming-soon";
 
 export function SiteHeader() {
   const [open, setOpen] = useState(false);
+  const pathname = useRouterState({ select: (s) => s.location.pathname });
+  const isActive = (href: string) => (href === "/" ? pathname === "/" : pathname.startsWith(href));
   const linkCls = (active: boolean) =>
     cn(
       "relative py-2 text-sm font-medium transition-colors hover:text-primary",
@@ -28,8 +30,8 @@ export function SiteHeader() {
               <NavLink
                 key={n.href}
                 target={n}
-                className={linkCls(n === routes.home)}
-                aria-current={n === routes.home ? "page" : undefined}
+                className={linkCls(isActive(n.href))}
+                aria-current={isActive(n.href) ? "page" : undefined}
               />
             ))}
           </nav>
@@ -59,7 +61,7 @@ export function SiteHeader() {
                     onSelect={() => setOpen(false)}
                     className={cn(
                       "rounded-md px-3 py-3 text-base font-medium hover:bg-accent",
-                      n === routes.home ? "bg-accent text-primary" : "text-foreground",
+                      isActive(n.href) ? "bg-accent text-primary" : "text-foreground",
                     )}
                   />
                 ))}

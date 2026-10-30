@@ -17,3 +17,12 @@
 - [x] Login "Forgot password?" link navigates to `/forgot-password`
 - [x] 10 validation tests added; all 37 tests pass
 - [x] Verified end-to-end in browser (desktop 1280px, mobile 320/375/768px, no overflow)
+
+## Done: Screen 05 — Public Hospital Directory (frontend only)
+- [x] `/hospitals` route, public, with URL-synced filters (city, type, department, name)
+- [x] 24 fictional hospitals, filter/sort/pagination utilities in `src/data/hospitals.ts`
+- [x] Desktop filter sidebar + mobile filter drawer (draft/apply), List/Map toggle, schematic SVG map with markers and preview
+- [x] Load More pagination (6 per page), empty state, dev-only loading/error previews
+- [x] Homepage search navigates to `/hospitals` with selected filters; header highlights Find Hospitals
+- [x] View Details opens "next design phase" notice (no Screen 06)
+- [x] Verified end-to-end in browser; all 58 tests pass; build clean
