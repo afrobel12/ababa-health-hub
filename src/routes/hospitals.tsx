@@ -1,4 +1,4 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { createFileRoute, stripSearchParams } from "@tanstack/react-router";
 import { ComingSoonProvider } from "@/components/home/coming-soon";
 import { SiteHeader } from "@/components/home/site-header";
 import { SiteFooter } from "@/components/home/cta-footer";
@@ -11,6 +11,10 @@ export const Route = createFileRoute("/hospitals")({
     type: search.type === "public" || search.type === "private" ? search.type : ("all" as const),
     q: typeof search.q === "string" ? search.q : "",
   }),
+  search: {
+    // Keep default values out of the shareable URL.
+    middlewares: [stripSearchParams({ city: "", department: "", type: "all" as const, q: "" })],
+  },
   head: () => ({
     meta: [
       { title: "Find a Hospital | Ethiopian Healthcare Management System" },
