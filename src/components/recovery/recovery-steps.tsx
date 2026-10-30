@@ -286,9 +286,6 @@ export function RecoveryCompleteStep({ onStartAgain }: { onStartAgain: () => voi
       <div className="mx-auto grid h-16 w-16 place-items-center rounded-full bg-teal-soft">
         <CheckCircle2 className="h-9 w-9 text-teal" aria-hidden />
       </div>
-      <p className="text-muted-foreground">
-        You have completed the demonstration password recovery process.
-      </p>
       <InformationNotice title="This is a frontend demonstration.">
         <p>No real account was accessed and no password was changed.</p>
       </InformationNotice>
