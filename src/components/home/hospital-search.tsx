@@ -1,26 +1,28 @@
 import { useState, type FormEvent } from "react";
 import { Building2, MapPin, Search, Stethoscope } from "lucide-react";
-import { toast } from "sonner";
+import { useNavigate } from "@tanstack/react-router";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cityOptions, departmentOptions, validateSearch, type SearchFilters } from "@/data/search-options";
+import { buildDirectorySearch } from "@/data/hospitals";
 
 export function HospitalSearch() {
   const [f, setF] = useState<SearchFilters>({ city: "", department: "", name: "" });
-  const [msg, setMsg] = useState<{ kind: "error" | "info"; text: string } | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const submit = (e: FormEvent) => {
     e.preventDefault();
     const r = validateSearch(f);
     if (!r.ok) {
-      setMsg({ kind: "error", text: r.error });
+      setError(r.error);
       return;
     }
-    const text = `Hospital search results are not available yet. Your filters: ${r.summary}.`;
-    setMsg({ kind: "info", text });
-    toast("Search coming soon", { description: text });
+    setError(null);
+    // Carry the selected filters into the public directory.
+    navigate({ to: "/hospitals", search: buildDirectorySearch(f) });
   };
 
   const field = "h-12 w-full bg-background";
@@ -63,9 +65,9 @@ export function HospitalSearch() {
             </Button>
           </div>
         </div>
-        {msg && (
-          <p role={msg.kind === "error" ? "alert" : "status"} className={msg.kind === "error" ? "mt-4 text-sm font-medium text-destructive" : "mt-4 rounded-lg bg-accent px-4 py-3 text-sm text-navy"}>
-            {msg.text}
+        {error && (
+          <p role="alert" className="mt-4 text-sm font-medium text-destructive">
+            {error}
           </p>
         )}
       </form>
