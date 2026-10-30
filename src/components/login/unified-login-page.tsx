@@ -12,7 +12,7 @@ import { routes } from "@/config/navigation";
 import { demoProfiles, type DemoProfile } from "@/data/demo-accounts";
 import { LIVE_SIGNIN_UNAVAILABLE, validateLogin, type LoginErrors } from "./login-validation";
 
-const forgotPassword = { label: "Forgot Password", href: "/forgot-password", implemented: false };
+const forgotPassword = { label: "Forgot Password", href: "/forgot-password", implemented: true };
 
 export function UnifiedLoginPage() {
   const [profile, setProfile] = useState<DemoProfile | null>(null);
