@@ -1,10 +1,10 @@
 # Roadmap
 
-## Screen 06 — Hospital Details (frontend only)
-- [ ] Hospital information, departments, fictional doctors, location and unknown-slug state
-- [ ] Synchronized appointment selections and explicitly non-booking preview
-- [ ] Directory navigation and return context
-- [ ] Tests, responsive checks and accessibility verification
+## Done: Screen 06 — Hospital Details (frontend only)
+- [x] Hospital information, departments, fictional doctors, location and unknown-slug state
+- [x] Synchronized appointment selections and explicitly non-booking preview
+- [x] Directory navigation and return context (URL filters, sort, view and pagination; router scroll restoration)
+- [x] 17 new tests, 75 total passing; compilation clean; eight widths checked; representative screenshots inspected; keyboard, dialog focus and shortcut checked
 
 ## Done: Screen 02 — Patient Registration (frontend only)
 - [x] `/register` route with four-step wizard (personal, identity, account + demo phone verification, success)
@@ -30,5 +30,5 @@
 - [x] Desktop filter sidebar + mobile filter drawer (draft/apply), List/Map toggle, schematic SVG map with markers and preview
 - [x] Load More pagination (6 per page), empty state, dev-only loading/error previews
 - [x] Homepage search navigates to `/hospitals` with selected filters; header highlights Find Hospitals
-- [x] View Details opens "next design phase" notice (no Screen 06)
+- [x] View Details now navigates to Screen 06 from list cards, map previews and map text results
 - [x] Verified end-to-end in browser; all 58 tests pass; build clean
