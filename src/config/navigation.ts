@@ -8,7 +8,7 @@ export const routes = {
   forHospitals: { label: "For Hospitals", href: "/for-hospitals", implemented: false },
   about: { label: "About", href: "/about", implemented: false },
   contact: { label: "Contact", href: "/contact", implemented: false },
-  login: { label: "Log In", href: "/login", implemented: false },
+  login: { label: "Log In", href: "/login", implemented: true },
   register: { label: "Register", href: "/register", implemented: true },
 } satisfies Record<string, NavTarget>;
 

@@ -7,4 +7,7 @@
 - [x] Verified end-to-end in browser (desktop 1280px, mobile 375px, no overflow)
 
 ## Deferred (per brief)
-- Login, patient dashboard, hospital search, backend, real SMS/OTP, real auth
+- Patient dashboard, hospital search, backend, real SMS/OTP, real auth
+
+## Done: Screen 03 — Unified Login (frontend only)
+- [x] /login with demo workspace previews
