@@ -56,7 +56,7 @@ export function NavLink({
   const open = useComingSoon();
   if (target.implemented) {
     return (
-      <Link to="/" className={className} onClick={onSelect} {...rest}>
+      <Link to={target.href as "/" | "/register"} className={className} onClick={onSelect} {...rest}>
         {children ?? target.label}
       </Link>
     );
