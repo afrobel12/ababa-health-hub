@@ -89,9 +89,9 @@ export function PatientRegistrationPage() {
   };
 
   const normalizedPhone = normalizeEthiopianPhone(account.phone) ?? "";
-  const heading = verifying
+  const heading: { title: string; desc: string } = verifying
     ? { title: "Verify your phone number", desc: "Enter the demonstration code to preview verification." }
-    : STEP_TITLES[step];
+    : (STEP_TITLES[step] ?? STEP_TITLES[0]);
 
   return (
     <ComingSoonProvider>
@@ -154,9 +154,7 @@ export function PatientRegistrationPage() {
               {step === 0 && (
                 <p className="mt-2 text-sm">
                   Already have an account?{" "}
-                  <Link to="/login" className="font-semibold text-primary underline underline-offset-2">
-                    Log in
-                  </Link>
+                  <NavLink target={routes.login} className="font-semibold text-primary underline underline-offset-2" />
                 </p>
               )}
             </div>

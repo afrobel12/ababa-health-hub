@@ -4,7 +4,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { cn } from "@/lib/utils";
 
-export function InlineError({ id, message }: { id: string; message?: string }) {
+export function InlineError({ id, message }: { id: string; message?: string | undefined }) {
   if (!message) return null;
   return (
     <p id={id} role="alert" className="flex items-start gap-1.5 text-sm font-medium text-destructive">
@@ -26,9 +26,9 @@ export function FormField({
   label: string;
   required?: boolean;
   optional?: boolean;
-  description?: string;
-  error?: string;
-  children: (ids: { id: string; describedBy?: string; invalid: boolean }) => ReactNode;
+  description?: string | undefined;
+  error?: string | undefined;
+  children: (ids: { id: string; describedBy?: string | undefined; invalid: boolean }) => ReactNode;
 }) {
   const id = useId();
   const descId = description ? `${id}-desc` : undefined;
@@ -66,11 +66,11 @@ export function PasswordInput({
   autoComplete,
 }: {
   id: string;
-  describedBy?: string;
+  describedBy?: string | undefined;
   invalid: boolean;
   value: string;
   onChange: (v: string) => void;
-  placeholder?: string;
+  placeholder?: string | undefined;
   autoComplete: string;
 }) {
   const [show, setShow] = useState(false);
