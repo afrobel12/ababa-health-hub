@@ -1,5 +1,11 @@
 # Roadmap
 
+## Screen 06 — Hospital Details (frontend only)
+- [ ] Hospital information, departments, fictional doctors, location and unknown-slug state
+- [ ] Synchronized appointment selections and explicitly non-booking preview
+- [ ] Directory navigation and return context
+- [ ] Tests, responsive checks and accessibility verification
+
 ## Done: Screen 02 — Patient Registration (frontend only)
 - [x] `/register` route with four-step wizard (personal, identity, account + demo phone verification, success)
 - [x] Homepage Register / Create Account buttons navigate to `/register`
