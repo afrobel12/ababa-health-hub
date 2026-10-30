@@ -22,7 +22,7 @@ export function HospitalSearch() {
     }
     setError(null);
     // Carry the selected filters into the public directory.
-    navigate({ to: "/hospitals", search: buildDirectorySearch(f) });
+    navigate({ to: "/hospitals", search: { city: "", department: "", type: "all" as const, q: "", ...buildDirectorySearch(f) } });
   };
 
   const field = "h-12 w-full bg-background";

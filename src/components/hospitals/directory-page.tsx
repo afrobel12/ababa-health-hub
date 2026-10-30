@@ -83,7 +83,9 @@ export function HospitalDirectoryPage() {
   const [preview, setPreview] = useState<"loading" | "error" | null>(null);
 
   const apply = (next: DirectoryFilters, opts?: { replace?: boolean }) =>
-    navigate({ search: filtersToSearch(next), replace: opts?.replace ?? false });
+    // Defaults are spread in for the router's full search type; the route's
+    // stripSearchParams middleware keeps them out of the visible URL.
+    navigate({ search: { city: "", department: "", type: "all" as const, q: "", ...filtersToSearch(next) }, replace: opts?.replace ?? false });
 
   // Name search: local draft debounced into the URL (replace, not push).
   const [qDraft, setQDraft] = useState(filters.q);
