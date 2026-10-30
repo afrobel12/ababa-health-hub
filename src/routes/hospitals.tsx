@@ -6,10 +6,10 @@ import { HospitalDirectoryPage } from "@/components/hospitals/directory-page";
 
 export const Route = createFileRoute("/hospitals")({
   validateSearch: (search: Record<string, unknown>) => ({
-    city: typeof search.city === "string" ? search.city : "",
-    department: typeof search.department === "string" ? search.department : "",
-    type: search.type === "public" || search.type === "private" ? search.type : ("all" as const),
-    q: typeof search.q === "string" ? search.q : "",
+    city: typeof search["city"] === "string" ? search["city"] : "",
+    department: typeof search["department"] === "string" ? search["department"] : "",
+    type: search["type"] === "public" || search["type"] === "private" ? search["type"] : ("all" as const),
+    q: typeof search["q"] === "string" ? search["q"] : "",
   }),
   search: {
     // Keep default values out of the shareable URL.
