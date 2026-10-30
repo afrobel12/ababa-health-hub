@@ -9,7 +9,7 @@ export const routes = {
   about: { label: "About", href: "/about", implemented: false },
   contact: { label: "Contact", href: "/contact", implemented: false },
   login: { label: "Log In", href: "/login", implemented: false },
-  register: { label: "Register", href: "/register", implemented: false },
+  register: { label: "Register", href: "/register", implemented: true },
 } satisfies Record<string, NavTarget>;
 
 export const mainNav: NavTarget[] = [
