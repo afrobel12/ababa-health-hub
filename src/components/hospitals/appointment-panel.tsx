@@ -22,7 +22,7 @@ export function HospitalAppointmentPanel({ hospital, selection, now, onDepartmen
   const ready = now ? canPreview(hospital, selection, now) : false;
   return <section id="appointment" aria-labelledby="appointment-heading" className="appointment-panel scroll-mt-28 self-start rounded-2xl border border-border bg-card shadow-card xl:col-start-2 xl:row-start-1 xl:row-span-4">
     <div className="border-b border-border p-5">
-      <h2 id="appointment-heading" tabIndex={-1} className="flex items-center gap-2 text-xl font-bold text-navy outline-none focus-visible:ring-2 focus-visible:ring-ring"><CalendarDays className="size-5 text-primary" aria-hidden />Book an Appointment</h2>
+      <h2 id="appointment-heading" tabIndex={-1} className="flex scroll-mt-28 items-center gap-2 text-xl font-bold text-navy outline-none focus-visible:ring-2 focus-visible:ring-ring"><CalendarDays className="size-5 text-primary" aria-hidden />Book an Appointment</h2>
       <p className="mt-2 text-sm text-muted-foreground">Select your preferred department, doctor, date and time.</p>
     </div>
     <div className="flex flex-col gap-5 p-5">
