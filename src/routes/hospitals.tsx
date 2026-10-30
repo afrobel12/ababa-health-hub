@@ -3,17 +3,13 @@ import { ComingSoonProvider } from "@/components/home/coming-soon";
 import { SiteHeader } from "@/components/home/site-header";
 import { SiteFooter } from "@/components/home/cta-footer";
 import { HospitalDirectoryPage } from "@/components/hospitals/directory-page";
+import { validateDirectorySearch, DIRECTORY_DEFAULTS } from "@/data/directory-search";
 
 export const Route = createFileRoute("/hospitals")({
-  validateSearch: (search: Record<string, unknown>) => ({
-    city: typeof search["city"] === "string" ? search["city"] : "",
-    department: typeof search["department"] === "string" ? search["department"] : "",
-    type: search["type"] === "public" || search["type"] === "private" ? search["type"] : ("all" as const),
-    q: typeof search["q"] === "string" ? search["q"] : "",
-  }),
+  validateSearch: validateDirectorySearch,
   search: {
     // Keep default values out of the shareable URL.
-    middlewares: [stripSearchParams({ city: "", department: "", type: "all" as const, q: "" })],
+    middlewares: [stripSearchParams(DIRECTORY_DEFAULTS)],
   },
   head: () => ({
     meta: [
