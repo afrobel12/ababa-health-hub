@@ -12,7 +12,8 @@
 ## Done: Screen 03 — Unified Login (frontend only)
 - [x] /login with demo workspace previews
 
-## In progress: Screen 04 — Account Recovery (frontend only)
+## Done: Screen 04 — Account Recovery (frontend only)
 - [x] `/forgot-password` route with four-stage flow (phone, demo OTP, new password, complete)
 - [x] Login "Forgot password?" link navigates to `/forgot-password`
-- [ ] Tests + browser verification
+- [x] 10 validation tests added; all 37 tests pass
+- [x] Verified end-to-end in browser (desktop 1280px, mobile 320/375/768px, no overflow)
