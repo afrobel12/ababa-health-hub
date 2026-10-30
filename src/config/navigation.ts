@@ -4,7 +4,7 @@ export type NavTarget = { label: string; href: string; implemented: boolean };
 
 export const routes = {
   home: { label: "Home", href: "/", implemented: true },
-  hospitals: { label: "Find Hospitals", href: "/hospitals", implemented: false },
+  hospitals: { label: "Find Hospitals", href: "/hospitals", implemented: true },
   forHospitals: { label: "For Hospitals", href: "/for-hospitals", implemented: false },
   about: { label: "About", href: "/about", implemented: false },
   contact: { label: "Contact", href: "/contact", implemented: false },
