@@ -17,10 +17,10 @@ describe("unbuilt pages", () => {
   it("opens the coming-soon notice instead of navigating", () => {
     render(
       <ComingSoonProvider>
-        <NavLink target={routes.login} />
+        <NavLink target={routes.about} />
       </ComingSoonProvider>,
     );
-    fireEvent.click(screen.getByText("Log In"));
+    fireEvent.click(screen.getByText("About"));
     expect(screen.getByText("This page is coming in a future design phase.")).toBeTruthy();
   });
 });
