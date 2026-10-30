@@ -131,17 +131,17 @@ export function HospitalMapView({
         <ul className="mt-2 grid gap-1 sm:grid-cols-2" aria-label="Map results as a list">
           {hospitals.map((h) => (
             <li key={h.id}>
-              <button
+              <Button variant="ghost"
                 type="button"
-                onClick={() => setSelectedId(h.id)}
-                aria-pressed={h.id === selectedId}
+                onClick={() => onViewDetails(h)}
+                aria-label={`View details for ${h.name}`}
                 className={cn(
-                  "w-full rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-accent",
+                  "h-auto min-h-11 w-full justify-start whitespace-normal rounded-lg px-3 py-2 text-left text-sm transition-colors hover:bg-accent",
                   h.id === selectedId ? "bg-accent font-semibold text-primary" : "text-foreground",
                 )}
               >
                 {h.name} <span className="text-muted-foreground">— {h.city}</span>
-              </button>
+              </Button>
             </li>
           ))}
         </ul>

@@ -166,3 +166,8 @@
     font-family: var(--font-display);
   }
 }
+
+/* Stick only when the entire appointment tool fits below the public header. */
+@media (min-width: 1280px) and (min-height: 1050px) {
+  .appointment-panel { position: sticky; top: 6.5rem; }
+}

@@ -1,15 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { useNavigate, useSearch } from "@tanstack/react-router";
-import { ChevronRight, Construction, List, Map as MapIcon, SlidersHorizontal, X } from "lucide-react";
+import { ChevronRight, List, Map as MapIcon, SlidersHorizontal, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogFooter,
-  DialogHeader,
-  DialogTitle,
-} from "@/components/ui/dialog";
 import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Sheet, SheetContent, SheetFooter, SheetHeader, SheetTitle } from "@/components/ui/sheet";
@@ -73,10 +65,12 @@ export function HospitalDirectoryPage() {
   const searchKey = JSON.stringify(search);
   const filters = useMemo(() => filtersFromSearch(search), [searchKey]);
 
-  const [view, setView] = useState<"list" | "map">("list");
-  const [sort, setSort] = useState<SortOption>("name-asc");
-  const [visible, setVisible] = useState(PAGE_SIZE);
-  const [details, setDetails] = useState<Hospital | null>(null);
+  const view = search.view === "map" ? "map" : "list";
+  const sort: SortOption = search.sort === "name-desc" || search.sort === "city-asc" ? search.sort : "name-asc";
+  const visible = Math.max(PAGE_SIZE, Math.min(24, Math.floor(search.visible) || PAGE_SIZE));
+  const setView = (view: "list" | "map") => navigate({ search: (prev) => ({ ...prev, view }) });
+  const setSort = (sort: SortOption) => navigate({ search: (prev) => ({ ...prev, sort, visible: PAGE_SIZE }) });
+  const openDetails = (hospital: Hospital) => navigate({ to: "/hospitals/$slug", params: { slug: hospital.slug }, search });
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [draft, setDraft] = useState<DirectoryFilters>(DEFAULT_FILTERS);
   // Development-only preview of the loading/error component states.
@@ -85,7 +79,7 @@ export function HospitalDirectoryPage() {
   const apply = (next: DirectoryFilters, opts?: { replace?: boolean }) =>
     // Defaults are spread in for the router's full search type; the route's
     // stripSearchParams middleware keeps them out of the visible URL.
-    navigate({ search: { city: "", department: "", type: "all" as const, q: "", ...filtersToSearch(next) }, replace: opts?.replace ?? false });
+    navigate({ search: { ...search, city: "", department: "", type: "all", q: "", ...filtersToSearch(next), visible: PAGE_SIZE }, replace: opts?.replace ?? false });
 
   // Name search: local draft debounced into the URL (replace, not push).
   const [qDraft, setQDraft] = useState(filters.q);
@@ -97,8 +91,6 @@ export function HospitalDirectoryPage() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [qDraft]);
 
-  // Reset pagination whenever filters or sorting change.
-  useEffect(() => setVisible(PAGE_SIZE), [searchKey, sort]);
 
   const filtered = useMemo(
     () => sortHospitals(filterHospitals(MOCK_HOSPITALS, filters), sort),
@@ -254,12 +246,12 @@ export function HospitalDirectoryPage() {
             ) : filtered.length === 0 ? (
               <DirectoryEmptyState onClear={() => apply(DEFAULT_FILTERS)} />
             ) : view === "map" ? (
-              <HospitalMapView hospitals={filtered} onViewDetails={setDetails} />
+              <HospitalMapView hospitals={filtered} onViewDetails={openDetails} />
             ) : (
               <>
                 <div className="flex flex-col gap-4">
                   {shown.map((h) => (
-                    <HospitalCard key={h.id} hospital={h} onViewDetails={setDetails} />
+                    <HospitalCard key={h.id} hospital={h} onViewDetails={openDetails} />
                   ))}
                 </div>
                 <div className="mt-6 flex flex-col items-center gap-3">
@@ -267,7 +259,7 @@ export function HospitalDirectoryPage() {
                     Showing {shown.length} of {filtered.length} sample hospitals
                   </p>
                   {visible < filtered.length ? (
-                    <Button variant="outline" className="h-11 border-primary px-8 text-primary hover:bg-accent hover:text-primary" onClick={() => setVisible((v) => v + PAGE_SIZE)}>
+                    <Button variant="outline" className="h-11 border-primary px-8 text-primary hover:bg-accent hover:text-primary" onClick={() => navigate({ search: (prev) => ({ ...prev, visible: visible + PAGE_SIZE }), resetScroll: false })}>
                       Load More Hospitals
                     </Button>
                   ) : (
@@ -324,23 +316,6 @@ export function HospitalDirectoryPage() {
         </SheetContent>
       </Sheet>
 
-      {/* View Details — Screen 06 notice */}
-      <Dialog open={!!details} onOpenChange={(o) => !o && setDetails(null)}>
-        <DialogContent>
-          <DialogHeader>
-            <div className="mb-2 grid h-11 w-11 place-items-center rounded-full bg-accent text-primary">
-              <Construction className="h-5 w-5" aria-hidden />
-            </div>
-            <DialogTitle>{details?.name}</DialogTitle>
-            <DialogDescription>
-              Hospital details will be available in the next design phase. This is a fictional demonstration listing.
-            </DialogDescription>
-          </DialogHeader>
-          <DialogFooter>
-            <Button onClick={() => setDetails(null)}>Close</Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </main>
   );
 }
