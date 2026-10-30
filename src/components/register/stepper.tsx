@@ -10,25 +10,29 @@ export const STEP_LABELS = [
 
 /**
  * Wizard progress. Desktop: horizontal numbered stepper; mobile: compact bar
- * with "Step X of 4". Completed steps are clickable so users can revisit them;
+ * with "Step X of N". Completed steps are clickable so users can revisit them;
  * future steps are not.
  */
-export function RegistrationStepper({
+export function WizardStepper({
+  labels,
+  ariaLabel,
   step,
   maxReached,
   onSelect,
 }: {
+  labels: readonly string[];
+  ariaLabel: string;
   step: number; // 0-based current step
   maxReached: number; // furthest step reached
   onSelect: (step: number) => void;
 }) {
-  const total = STEP_LABELS.length;
+  const total = labels.length;
   return (
     <div>
       {/* Mobile compact progress */}
       <div className="lg:hidden" aria-hidden>
         <div className="flex items-baseline justify-between">
-          <p className="text-sm font-semibold text-navy">{STEP_LABELS[step]}</p>
+          <p className="text-sm font-semibold text-navy">{labels[step]}</p>
           <p className="text-xs text-muted-foreground">
             Step {step + 1} of {total}
           </p>
@@ -42,8 +46,8 @@ export function RegistrationStepper({
       </div>
 
       {/* Desktop stepper */}
-      <ol aria-label="Registration progress" className="hidden lg:flex lg:items-center lg:gap-2">
-        {STEP_LABELS.map((label, i) => {
+      <ol aria-label={ariaLabel} className="hidden lg:flex lg:items-center lg:gap-2">
+        {labels.map((label, i) => {
           const done = i < step;
           const current = i === step;
           const reachable = i <= maxReached;
@@ -86,5 +90,25 @@ export function RegistrationStepper({
         })}
       </ol>
     </div>
+  );
+}
+
+export function RegistrationStepper({
+  step,
+  maxReached,
+  onSelect,
+}: {
+  step: number;
+  maxReached: number;
+  onSelect: (step: number) => void;
+}) {
+  return (
+    <WizardStepper
+      labels={STEP_LABELS}
+      ariaLabel="Registration progress"
+      step={step}
+      maxReached={maxReached}
+      onSelect={onSelect}
+    />
   );
 }
