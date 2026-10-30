@@ -14,6 +14,7 @@ import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as HospitalsRouteImport } from './routes/hospitals'
 import { Route as LoginRouteImport } from './routes/login'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as HospitalsSlugRouteImport } from './routes/hospitals_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -40,6 +41,11 @@ const RegisterRoute = RegisterRouteImport.update({
   path: '/register',
   getParentRoute: () => rootRouteImport,
 } as any)
+const HospitalsSlugRoute = HospitalsSlugRouteImport.update({
+  id: '/hospitals_/$slug',
+  path: '/hospitals/$slug',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -47,6 +53,7 @@ export interface FileRoutesByFullPath {
   '/hospitals': typeof HospitalsRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/hospitals/$slug': typeof HospitalsSlugRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -54,6 +61,7 @@ export interface FileRoutesByTo {
   '/hospitals': typeof HospitalsRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/hospitals/$slug': typeof HospitalsSlugRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -62,12 +70,25 @@ export interface FileRoutesById {
   '/hospitals': typeof HospitalsRoute
   '/login': typeof LoginRoute
   '/register': typeof RegisterRoute
+  '/hospitals_/$slug': typeof HospitalsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/forgot-password' | '/hospitals' | '/login' | '/register'
+  fullPaths:
+    | '/'
+    | '/forgot-password'
+    | '/hospitals'
+    | '/login'
+    | '/register'
+    | '/hospitals/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/forgot-password' | '/hospitals' | '/login' | '/register'
+  to:
+    | '/'
+    | '/forgot-password'
+    | '/hospitals'
+    | '/login'
+    | '/register'
+    | '/hospitals/$slug'
   id:
     | '__root__'
     | '/'
@@ -75,6 +96,7 @@ export interface FileRouteTypes {
     | '/hospitals'
     | '/login'
     | '/register'
+    | '/hospitals_/$slug'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -83,6 +105,7 @@ export interface RootRouteChildren {
   HospitalsRoute: typeof HospitalsRoute
   LoginRoute: typeof LoginRoute
   RegisterRoute: typeof RegisterRoute
+  HospitalsSlugRoute: typeof HospitalsSlugRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -122,6 +145,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof RegisterRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/hospitals_/$slug': {
+      id: '/hospitals_/$slug'
+      path: '/hospitals/$slug'
+      fullPath: '/hospitals/$slug'
+      preLoaderRoute: typeof HospitalsSlugRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -131,6 +161,7 @@ const rootRouteChildren: RootRouteChildren = {
   HospitalsRoute: HospitalsRoute,
   LoginRoute: LoginRoute,
   RegisterRoute: RegisterRoute,
+  HospitalsSlugRoute: HospitalsSlugRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
