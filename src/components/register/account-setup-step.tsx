@@ -169,8 +169,8 @@ export function DemoPhoneVerification({
 
   const expired = secondsLeft <= 0;
 
-  const verify = () => {
-    const result = checkDemoCode(code, expired);
+  const verify = (value: string = code) => {
+    const result = checkDemoCode(value, expired);
     switch (result) {
       case "empty":
         setError("Enter the 6-digit demonstration code.");
@@ -228,7 +228,7 @@ export function DemoPhoneVerification({
             setCode(v);
             setError(null);
           }}
-          onComplete={verify}
+          onComplete={(v) => verify(v)}
           inputMode="numeric"
           autoComplete="one-time-code"
           containerClassName="justify-start"
