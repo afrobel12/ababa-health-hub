@@ -256,7 +256,7 @@ export function DemoPhoneVerification({
         <Button type="button" variant="ghost" onClick={resend} className="h-11">
           Resend Code
         </Button>
-        <Button type="button" onClick={verify} className="h-11 px-8">
+        <Button type="button" onClick={() => verify()} className="h-11 px-8">
           Verify Code
         </Button>
       </div>
