@@ -7,6 +7,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cityOptions, departmentOptions, validateSearch, type SearchFilters } from "@/data/search-options";
 import { buildDirectorySearch } from "@/data/hospitals";
+import { DIRECTORY_DEFAULTS } from "@/data/directory-search";
 
 export function HospitalSearch() {
   const [f, setF] = useState<SearchFilters>({ city: "", department: "", name: "" });
@@ -22,7 +23,7 @@ export function HospitalSearch() {
     }
     setError(null);
     // Carry the selected filters into the public directory.
-    navigate({ to: "/hospitals", search: { city: "", department: "", type: "all" as const, q: "", ...buildDirectorySearch(f) } });
+    navigate({ to: "/hospitals", search: { ...DIRECTORY_DEFAULTS, ...buildDirectorySearch(f) } });
   };
 
   const field = "h-12 w-full bg-background";

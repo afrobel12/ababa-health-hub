@@ -70,7 +70,7 @@ export function HospitalDirectoryPage() {
   const visible = Math.max(PAGE_SIZE, Math.min(24, Math.floor(search.visible) || PAGE_SIZE));
   const setView = (view: "list" | "map") => navigate({ search: (prev) => ({ ...prev, view }) });
   const setSort = (sort: SortOption) => navigate({ search: (prev) => ({ ...prev, sort, visible: PAGE_SIZE }) });
-  const openDetails = (hospital: Hospital) => navigate({ to: "/hospitals_/$slug", params: { slug: hospital.slug }, search });
+  const openDetails = (hospital: Hospital) => navigate({ to: "/hospitals/$slug", params: { slug: hospital.slug }, search });
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [draft, setDraft] = useState<DirectoryFilters>(DEFAULT_FILTERS);
   // Development-only preview of the loading/error component states.

@@ -4,13 +4,13 @@ import { ArrowLeft, CalendarDays, ChevronRight, MapPin, Stethoscope, Check, Hear
 import { Button } from "@/components/ui/button";
 import type { Hospital } from "@/data/hospitals";
 import { changeDepartment, changeDoctor, doctorsFor, EMPTY_SELECTION, hospitalOverview, isDemoDate, type AppointmentSelection } from "@/data/hospital-details";
-import { validateDirectorySearch } from "@/data/directory-search";
+import { validateDirectorySearch, DIRECTORY_DEFAULTS } from "@/data/directory-search";
 import { TypeBadge } from "./hospital-card";
 import { HospitalAppointmentPanel } from "./appointment-panel";
 
 type DirectoryContext = ReturnType<typeof validateDirectorySearch>;
 export function HospitalNotFound() {
-  return <main className="mx-auto max-w-7xl px-4 py-24 text-center"><Building2 className="mx-auto mb-5 size-12 text-primary" aria-hidden /><h1 className="text-3xl font-bold text-navy">Hospital not found</h1><p className="mt-3 text-muted-foreground">We couldn't find that hospital in our demonstration directory.</p><Button asChild className="mt-6 h-11"><Link to="/hospitals">Back to Find Hospitals</Link></Button></main>;
+  return <main className="mx-auto max-w-7xl px-4 py-24 text-center"><Building2 className="mx-auto mb-5 size-12 text-primary" aria-hidden /><h1 className="text-3xl font-bold text-navy">Hospital not found</h1><p className="mt-3 text-muted-foreground">We couldn't find that hospital in our demonstration directory.</p><Button asChild className="mt-6 h-11"><Link to="/hospitals" search={DIRECTORY_DEFAULTS}>Back to Find Hospitals</Link></Button></main>;
 }
 const departmentIcon = (department: string) => department === "Cardiology" ? HeartPulse : department === "Pediatrics" ? Baby : department === "Orthopedics" ? Bone : Stethoscope;
 export function HospitalDetailsPage({ hospital, directory }: { hospital: Hospital; directory: DirectoryContext }) {
