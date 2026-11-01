@@ -12,6 +12,19 @@ import {
 import { Button } from "@/components/ui/button";
 import type { NavTarget } from "@/config/navigation";
 
+type AppPath =
+  | "/"
+  | "/register"
+  | "/login"
+  | "/forgot-password"
+  | "/hospitals"
+  | "/for-hospitals"
+  | "/for-hospitals/apply"
+  | "/about"
+  | "/contact"
+  | "/privacy"
+  | "/terms";
+
 const Ctx = createContext<(t: NavTarget) => void>(() => {});
 
 export function ComingSoonProvider({ children }: { children: ReactNode }) {
@@ -56,7 +69,7 @@ export function NavLink({
   const open = useComingSoon();
   if (target.implemented) {
     return (
-      <Link to={target.href as "/" | "/register" | "/login" | "/forgot-password" | "/hospitals"} className={className} onClick={onSelect} {...rest}>
+      <Link to={target.href as AppPath} hash={target.hash} className={className} onClick={onSelect} {...rest}>
         {children ?? target.label}
       </Link>
     );
