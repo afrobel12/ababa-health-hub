@@ -1,5 +1,12 @@
 # Roadmap
 
+## Done: Screen 07 — Hospital Application & Supporting Pages (frontend only)
+- [x] /for-hospitals landing (hero, capabilities, onboarding, eligibility, FAQ, CTA)
+- [x] /for-hospitals/apply four-step wizard (hospital, representative, review, demo complete)
+- [x] /about, /contact (demo inquiry), /privacy and /terms drafts
+- [x] Header/footer links wired; 14 new tests (89 total); eight widths, no overflow; FAQ keyboard checked
+
+
 ## Done: Screen 06 — Hospital Details (frontend only)
 - [x] Hospital information, departments, fictional doctors, location and unknown-slug state
 - [x] Synchronized appointment selections and explicitly non-booking preview
