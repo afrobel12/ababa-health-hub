@@ -10,15 +10,31 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as HospitalsRouteImport } from './routes/hospitals'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RegisterRouteImport } from './routes/register'
+import { Route as TermsRouteImport } from './routes/terms'
+import { Route as ForHospitalsIndexRouteImport } from './routes/for-hospitals.index'
+import { Route as ForHospitalsApplyRouteImport } from './routes/for-hospitals.apply'
 import { Route as HospitalsSlugRouteImport } from './routes/hospitals_.$slug'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AboutRoute = AboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ForgotPasswordRoute = ForgotPasswordRouteImport.update({
@@ -36,9 +52,29 @@ const LoginRoute = LoginRouteImport.update({
   path: '/login',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PrivacyRoute = PrivacyRouteImport.update({
+  id: '/privacy',
+  path: '/privacy',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const RegisterRoute = RegisterRouteImport.update({
   id: '/register',
   path: '/register',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TermsRoute = TermsRouteImport.update({
+  id: '/terms',
+  path: '/terms',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForHospitalsIndexRoute = ForHospitalsIndexRouteImport.update({
+  id: '/for-hospitals/',
+  path: '/for-hospitals/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ForHospitalsApplyRoute = ForHospitalsApplyRouteImport.update({
+  id: '/for-hospitals/apply',
+  path: '/for-hospitals/apply',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HospitalsSlugRoute = HospitalsSlugRouteImport.update({
@@ -49,63 +85,105 @@ const HospitalsSlugRoute = HospitalsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/hospitals': typeof HospitalsRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
+  '/terms': typeof TermsRoute
+  '/for-hospitals/apply': typeof ForHospitalsApplyRoute
   '/hospitals/$slug': typeof HospitalsSlugRoute
+  '/for-hospitals/': typeof ForHospitalsIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/hospitals': typeof HospitalsRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
+  '/terms': typeof TermsRoute
+  '/for-hospitals/apply': typeof ForHospitalsApplyRoute
   '/hospitals/$slug': typeof HospitalsSlugRoute
+  '/for-hospitals': typeof ForHospitalsIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/about': typeof AboutRoute
+  '/contact': typeof ContactRoute
   '/forgot-password': typeof ForgotPasswordRoute
   '/hospitals': typeof HospitalsRoute
   '/login': typeof LoginRoute
+  '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
+  '/terms': typeof TermsRoute
+  '/for-hospitals/apply': typeof ForHospitalsApplyRoute
   '/hospitals_/$slug': typeof HospitalsSlugRoute
+  '/for-hospitals/': typeof ForHospitalsIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/about'
+    | '/contact'
     | '/forgot-password'
     | '/hospitals'
     | '/login'
+    | '/privacy'
     | '/register'
+    | '/terms'
+    | '/for-hospitals/apply'
     | '/hospitals/$slug'
+    | '/for-hospitals/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
+    | '/about'
+    | '/contact'
     | '/forgot-password'
     | '/hospitals'
     | '/login'
+    | '/privacy'
     | '/register'
+    | '/terms'
+    | '/for-hospitals/apply'
     | '/hospitals/$slug'
+    | '/for-hospitals'
   id:
     | '__root__'
     | '/'
+    | '/about'
+    | '/contact'
     | '/forgot-password'
     | '/hospitals'
     | '/login'
+    | '/privacy'
     | '/register'
+    | '/terms'
+    | '/for-hospitals/apply'
     | '/hospitals_/$slug'
+    | '/for-hospitals/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AboutRoute: typeof AboutRoute
+  ContactRoute: typeof ContactRoute
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   HospitalsRoute: typeof HospitalsRoute
   LoginRoute: typeof LoginRoute
+  PrivacyRoute: typeof PrivacyRoute
   RegisterRoute: typeof RegisterRoute
+  TermsRoute: typeof TermsRoute
+  ForHospitalsApplyRoute: typeof ForHospitalsApplyRoute
   HospitalsSlugRoute: typeof HospitalsSlugRoute
+  ForHospitalsIndexRoute: typeof ForHospitalsIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -115,6 +193,20 @@ declare module '@tanstack/react-router' {
       path: '/'
       fullPath: '/'
       preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/about': {
+      id: '/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/forgot-password': {
@@ -138,11 +230,39 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/privacy': {
+      id: '/privacy'
+      path: '/privacy'
+      fullPath: '/privacy'
+      preLoaderRoute: typeof PrivacyRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/register': {
       id: '/register'
       path: '/register'
       fullPath: '/register'
       preLoaderRoute: typeof RegisterRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/terms': {
+      id: '/terms'
+      path: '/terms'
+      fullPath: '/terms'
+      preLoaderRoute: typeof TermsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-hospitals/': {
+      id: '/for-hospitals/'
+      path: '/for-hospitals'
+      fullPath: '/for-hospitals/'
+      preLoaderRoute: typeof ForHospitalsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/for-hospitals/apply': {
+      id: '/for-hospitals/apply'
+      path: '/for-hospitals/apply'
+      fullPath: '/for-hospitals/apply'
+      preLoaderRoute: typeof ForHospitalsApplyRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/hospitals_/$slug': {
@@ -157,11 +277,17 @@ declare module '@tanstack/react-router' {
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AboutRoute: AboutRoute,
+  ContactRoute: ContactRoute,
   ForgotPasswordRoute: ForgotPasswordRoute,
   HospitalsRoute: HospitalsRoute,
   LoginRoute: LoginRoute,
+  PrivacyRoute: PrivacyRoute,
   RegisterRoute: RegisterRoute,
+  TermsRoute: TermsRoute,
+  ForHospitalsApplyRoute: ForHospitalsApplyRoute,
   HospitalsSlugRoute: HospitalsSlugRoute,
+  ForHospitalsIndexRoute: ForHospitalsIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
