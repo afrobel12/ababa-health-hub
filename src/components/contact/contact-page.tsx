@@ -1,5 +1,6 @@
 import { useRef, useState } from "react";
-import { Link } from "@tanstack/react-router";
+import { NavLink } from "@/components/home/coming-soon";
+import { routes } from "@/config/navigation";
 import { ArrowRight, CheckCircle2, RotateCcw, Send } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,11 +18,11 @@ import {
 } from "./contact-validation";
 
 const helpfulLinks = [
-  { to: "/hospitals", label: "Find a hospital", text: "Browse the demonstration directory." },
-  { to: "/for-hospitals", label: "For hospitals", text: "Learn how hospitals could join." },
-  { to: "/about", label: "About the platform", text: "Our mission and principles." },
-  { to: "/privacy", label: "Privacy Policy (draft)", text: "How information may be handled." },
-] as const;
+  { target: routes.hospitals, label: "Find a hospital", text: "Browse the demonstration directory." },
+  { target: routes.forHospitals, label: "For hospitals", text: "Learn how hospitals could join." },
+  { target: routes.about, label: "About the platform", text: "Our mission and principles." },
+  { target: routes.privacy, label: "Privacy Policy (draft)", text: "How information may be handled." },
+];
 
 export function ContactInquiryForm() {
   const [value, setValue] = useState<ContactInquiry>(emptyInquiry);
@@ -136,14 +137,14 @@ export function ContactPage() {
           <h2 id="helpful-title" className="text-lg font-bold text-navy">Helpful pages</h2>
           <ul className="mt-4 space-y-3">
             {helpfulLinks.map((l) => (
-              <li key={l.to}>
-                <Link to={l.to} className="group flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 shadow-card transition-colors hover:border-primary/40">
+              <li key={l.label}>
+                <NavLink target={l.target} className="group flex items-center justify-between gap-3 rounded-xl border border-border bg-card p-4 shadow-card transition-colors hover:border-primary/40">
                   <span className="min-w-0">
                     <span className="block font-semibold text-navy group-hover:text-primary">{l.label}</span>
                     <span className="block text-sm text-muted-foreground">{l.text}</span>
                   </span>
                   <ArrowRight className="h-4 w-4 shrink-0 text-primary" aria-hidden />
-                </Link>
+                </NavLink>
               </li>
             ))}
           </ul>

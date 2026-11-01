@@ -15,6 +15,7 @@ import {
 } from "lucide-react";
 import heroImg from "@/assets/hero-clinic.jpg";
 import { Button } from "@/components/ui/button";
+import { DIRECTORY_DEFAULTS } from "@/data/directory-search";
 import { PublicPageHero, PublicPageShell, SectionHeading } from "@/components/public/page-shell";
 
 type Item = { icon: LucideIcon; title: string; text: string };
@@ -116,7 +117,7 @@ export function AboutPage() {
           <h2 id="about-cta-title" className="text-2xl font-extrabold text-navy sm:text-3xl">Explore the platform</h2>
           <div className="flex flex-col gap-3 sm:flex-row">
             <Button asChild size="lg" className="h-12 px-7">
-              <Link to="/hospitals">Find Hospitals</Link>
+              <Link to="/hospitals" search={DIRECTORY_DEFAULTS}>Find Hospitals</Link>
             </Button>
             <Button asChild size="lg" className="h-12 bg-teal px-7 text-teal-foreground hover:bg-teal/90">
               <Link to="/for-hospitals">For Hospitals</Link>
