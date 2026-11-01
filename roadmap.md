@@ -1,10 +1,10 @@
 # Roadmap
 
-## In progress: Screen 07 — Hospital Application & Supporting Pages (frontend only)
-- [ ] /for-hospitals landing (hero, capabilities, onboarding, eligibility, FAQ, CTA)
-- [ ] /for-hospitals/apply four-step wizard (hospital, representative, review, demo complete)
-- [ ] /about, /contact (demo inquiry), /privacy and /terms drafts
-- [ ] Header/footer links wired; tests; responsive + keyboard checks
+## Done: Screen 07 — Hospital Application & Supporting Pages (frontend only)
+- [x] /for-hospitals landing (hero, capabilities, onboarding, eligibility, FAQ, CTA)
+- [x] /for-hospitals/apply four-step wizard (hospital, representative, review, demo complete)
+- [x] /about, /contact (demo inquiry), /privacy and /terms drafts
+- [x] Header/footer links wired; 14 new tests (89 total); eight widths, no overflow; FAQ keyboard checked
 
 
 ## Done: Screen 06 — Hospital Details (frontend only)
