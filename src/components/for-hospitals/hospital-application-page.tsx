@@ -61,23 +61,21 @@ export function HospitalApplicationWizard() {
   }, [step]);
 
   const show = (next: number) => {
-    // Going back clears errors for later steps so they don't reappear stale.
-    if (next < step) {
-      if (next < 1) setRepErrors({});
-    }
+    // Going back to step 1 clears representative errors so they don't reappear stale.
+    if (next < step && next < 1) setRepErrors({});
     setStep(next);
     setMaxReached((m) => Math.max(m, next));
   };
 
+  /** Stepper navigation: backwards freely, forwards only through valid steps. */
   const goTo = (target: number) => {
     if (target <= step) return show(target);
     const ok = allowedStep(target, hospital, rep);
     if (ok < target) {
-      // Surface the errors of the step that blocks progress.
       if (ok === 0) setHospitalErrors(validateHospitalInfo(hospital));
       else setRepErrors(validateRepresentative(rep));
     }
-    show(Math.max(ok, step) === step && ok < step ? step : ok);
+    show(ok);
   };
 
   const continueHospital = () => {
