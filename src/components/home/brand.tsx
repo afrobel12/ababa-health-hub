@@ -1,7 +1,15 @@
 import { Heart, Plus } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-export function Brand({ inverted, compact }: { inverted?: boolean; compact?: boolean }) {
+export function Brand({ inverted, compact, markOnly }: { inverted?: boolean; compact?: boolean; markOnly?: boolean }) {
+  if (markOnly) {
+    return (
+      <span className="relative grid h-8 w-8 shrink-0 place-items-center">
+        <Heart className="h-8 w-8 fill-teal text-teal" strokeWidth={1.5} aria-hidden />
+        <Plus className="absolute h-3.5 w-3.5 text-primary-foreground" strokeWidth={3.5} aria-hidden />
+      </span>
+    );
+  }
   return (
     <span className="flex min-w-0 items-center gap-2.5">
       <span className="relative grid h-10 w-10 shrink-0 place-items-center">

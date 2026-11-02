@@ -11,6 +11,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { PopoverClose } from "@radix-ui/react-popover";
 import { futureTarget, pageLabelFor, patientNav } from "@/config/patient-navigation";
 import { MOCK_PATIENT, UNREAD_NOTIFICATION_COUNT, buildNotifications, formatRelative } from "@/data/patient-demo";
 import { useDemoNow } from "@/hooks/use-demo-now";
@@ -96,7 +97,6 @@ export function NotificationBell() {
 }
 
 // Closes the popover (via Radix Close) after queuing the notice.
-import { PopoverClose } from "@radix-ui/react-popover";
 function PopoverCloseAll({ onSelect }: { onSelect: () => void }) {
   return (
     <PopoverClose asChild>
@@ -156,10 +156,7 @@ export function PatientTopHeader() {
     <header className="sticky top-0 z-30 border-b border-border bg-background/95 backdrop-blur">
       <div className="flex h-14 items-center gap-3 px-3 sm:px-4 lg:h-16 lg:px-8">
         <Link to="/patient" aria-label="Patient Portal dashboard" className="flex min-w-0 items-center gap-2 lg:hidden">
-          <span className="sr-only">Ethiopian Healthcare Management System</span>
-          <span className="[&>span>span:last-child]:hidden">
-            <Brand compact />
-          </span>
+          <Brand markOnly />
           <span className="truncate font-display text-sm font-bold text-navy">Patient Portal</span>
         </Link>
         <div className="hidden min-w-0 items-center gap-2 text-sm lg:flex">
