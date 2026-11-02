@@ -100,7 +100,7 @@ export function NotificationBell() {
 function PopoverCloseAll({ onSelect }: { onSelect: () => void }) {
   return (
     <PopoverClose asChild>
-      <Button variant="ghost" className="h-10 w-full text-primary" onClick={onSelect}>
+      <Button variant="ghost" className="h-10 w-full text-primary" aria-label="View all notifications" onClick={onSelect}>
         View All
       </Button>
     </PopoverClose>
