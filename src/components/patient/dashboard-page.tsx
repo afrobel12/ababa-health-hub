@@ -1,4 +1,4 @@
-import { useMemo, type ReactNode } from "react";
+import { useMemo } from "react";
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, CalendarPlus, FileHeart, Users } from "lucide-react";
 import welcomeImg from "@/assets/patient-welcome.jpg";
@@ -14,7 +14,6 @@ import {
   buildNotifications,
 } from "@/data/patient-demo";
 import { useDemoNow } from "@/hooks/use-demo-now";
-import { cn } from "@/lib/utils";
 import { AppointmentOverview, RecentNotifications, UpcomingAppointmentsPreview } from "./appointment-sections";
 import { MedicalHistoryPreview } from "./medical-history-preview";
 import { PatientProfileSummary } from "./profile-summary";
@@ -55,20 +54,6 @@ export function PatientDashboardPage() {
         </div>
       )}
     </div>
-  );
-}
-
-export function DashboardCard({ title, action, children, className, id }: { title: string; action?: ReactNode; children: ReactNode; className?: string; id: string }) {
-  return (
-    <section aria-labelledby={id} className={cn("rounded-2xl border border-border bg-card p-4 shadow-card sm:p-6", className)}>
-      <div className="mb-4 flex flex-wrap items-center justify-between gap-2">
-        <h2 id={id} className="font-display text-lg font-bold text-navy">
-          {title}
-        </h2>
-        {action}
-      </div>
-      {children}
-    </section>
   );
 }
 

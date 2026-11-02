@@ -2,7 +2,7 @@ import { useComingSoon } from "@/components/home/coming-soon";
 import { Button } from "@/components/ui/button";
 import { futureTarget, patientNav } from "@/config/patient-navigation";
 import { MOCK_PATIENT, ageFromDob, formatDob, formatShortDate, fullName, measurementSource } from "@/data/patient-demo";
-import { DashboardCard } from "./dashboard-page";
+import { DashboardCard } from "./dashboard-card";
 
 export function PatientProfileSummary({ now }: { now: Date }) {
   const open = useComingSoon();

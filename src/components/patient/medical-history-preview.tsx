@@ -6,7 +6,7 @@ import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/component
 import { futureTarget, patientNav } from "@/config/patient-navigation";
 import { formatShortDate, type HospitalHistoryGroup } from "@/data/patient-demo";
 import { cn } from "@/lib/utils";
-import { DashboardCard } from "./dashboard-page";
+import { DashboardCard } from "./dashboard-card";
 import { AccessBadge } from "./status-badge";
 
 export function MedicalHistoryPreview({ groups }: { groups: HospitalHistoryGroup[] }) {

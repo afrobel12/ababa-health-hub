@@ -272,9 +272,22 @@ function DemoWorkspacePreview({
         <PreviewRow icon={<LayoutDashboard className="h-4 w-4" />} term="Would open" detail={ws.destination} />
         <div className="border-t border-border pt-4 text-sm leading-relaxed text-muted-foreground">{ws.description}</div>
       </dl>
-      <p className="mt-3 text-xs text-muted-foreground">
-        The {ws.destination} is planned for a future design phase and has not been built.
-      </p>
+      {ws.role === "patient" ? (
+        <>
+          <Button asChild className="mt-5 h-12 w-full text-base">
+            <Link to="/patient">
+              Open Demo Patient Dashboard <ArrowRight className="h-4 w-4" aria-hidden />
+            </Link>
+          </Button>
+          <p className="mt-2 text-xs text-muted-foreground">
+            Opens a demo workspace with fictional patient information. You are not signed in.
+          </p>
+        </>
+      ) : (
+        <p className="mt-3 text-xs text-muted-foreground">
+          The {ws.destination} is planned for a future design phase and has not been built.
+        </p>
+      )}
 
       <Button type="button" variant="ghost" onClick={onBack} className="mt-6 h-11">
         <ArrowLeft className="h-4 w-4" aria-hidden /> Back to log in

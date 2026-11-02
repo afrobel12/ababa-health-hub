@@ -1,5 +1,6 @@
+import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
-import { Bell, Building2, CalendarCheck, CalendarClock, CalendarDays, Clock, History, Megaphone, Stethoscope } from "lucide-react";
+import { Bell, CalendarCheck, CalendarClock, CalendarDays, Clock, History, Megaphone, Stethoscope, UserRound } from "lucide-react";
 import { useComingSoon } from "@/components/home/coming-soon";
 import { Button } from "@/components/ui/button";
 import { futureTarget, patientNav } from "@/config/patient-navigation";
@@ -13,7 +14,7 @@ import {
   type appointmentSummary,
 } from "@/data/patient-demo";
 import { cn } from "@/lib/utils";
-import { DashboardCard } from "./dashboard-page";
+import { DashboardCard } from "./dashboard-card";
 import { StatusBadge } from "./status-badge";
 
 type Summary = ReturnType<typeof appointmentSummary>;
@@ -33,7 +34,7 @@ export function AppointmentOverview({ summary }: { summary: Summary }) {
   );
 }
 
-function Stat({ icon, label, value }: { icon: React.ReactNode; label: string; value: number }) {
+function Stat({ icon, label, value }: { icon: ReactNode; label: string; value: number }) {
   return (
     <div className="flex items-center gap-3 rounded-2xl border border-border bg-card p-4 shadow-card">
       <span aria-hidden className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-teal-soft text-teal">
@@ -88,7 +89,7 @@ export function NextAppointmentCard({ next }: { next: Appointment | null }) {
             <Stethoscope className="h-4 w-4 shrink-0 text-primary" aria-hidden /> {next.department}
           </p>
           <p className="flex items-center gap-2 text-foreground">
-            <Building2 className="h-4 w-4 shrink-0 text-primary" aria-hidden />
+            <UserRound className="h-4 w-4 shrink-0 text-primary" aria-hidden />
             {next.doctor ? next.doctor.displayName : "Doctor not yet assigned"}
           </p>
           <p className="text-muted-foreground">
