@@ -23,7 +23,8 @@ type AppPath =
   | "/about"
   | "/contact"
   | "/privacy"
-  | "/terms";
+  | "/terms"
+  | "/patient";
 
 const Ctx = createContext<(t: NavTarget) => void>(() => {});
 
@@ -39,7 +40,7 @@ export function ComingSoonProvider({ children }: { children: ReactNode }) {
               <Construction className="h-5 w-5" aria-hidden />
             </div>
             <DialogTitle>{target?.label}</DialogTitle>
-            <DialogDescription>This page is coming in a future design phase.</DialogDescription>
+            <DialogDescription>{target?.notice ?? "This page is coming in a future design phase."}</DialogDescription>
           </DialogHeader>
           <DialogFooter>
             <Button onClick={() => setTarget(null)}>Got it</Button>
