@@ -2,6 +2,7 @@ import type { ReactNode } from "react";
 import { Link } from "@tanstack/react-router";
 import { Bell, CalendarCheck, CalendarClock, CalendarDays, Clock, History, Megaphone, Stethoscope, UserRound } from "lucide-react";
 import { useComingSoon } from "@/components/home/coming-soon";
+import { DIRECTORY_DEFAULTS } from "@/data/directory-search";
 import { Button } from "@/components/ui/button";
 import { futureTarget, patientNav } from "@/config/patient-navigation";
 import {
@@ -58,7 +59,7 @@ export function NextAppointmentCard({ next }: { next: Appointment | null }) {
           <h3 className="mt-3 font-display font-bold text-navy">No upcoming appointments</h3>
           <p className="mt-1 text-sm text-muted-foreground">You don't have any demonstration appointments scheduled.</p>
           <Button asChild className="mt-4">
-            <Link to="/hospitals" search={{}}>Find Hospitals</Link>
+            <Link to="/hospitals" search={DIRECTORY_DEFAULTS}>Find Hospitals</Link>
           </Button>
         </div>
       </DashboardCard>

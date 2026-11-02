@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { render, screen, within } from "@testing-library/react";
+import { fireEvent, render, screen, within } from "@testing-library/react";
 import { QueryClient } from "@tanstack/react-query";
 import { createRouter } from "@tanstack/react-router";
 import { routeTree } from "@/routeTree.gen";
@@ -119,7 +119,7 @@ describe("medical history preview", () => {
     );
     const groups = screen.getAllByTestId("history-group");
     const first = groups[0]!;
-    within(first).getByRole("button").click();
+    fireEvent.click(within(first).getByRole("button"));
     expect(await within(first).findByText("Details restricted by the hospital.")).toBeInTheDocument();
     expect(within(first).getAllByText(/Available to patient/)).toHaveLength(2);
     expect(within(first).getByTestId("visible-count").textContent).toBe("2");

@@ -3,6 +3,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, CalendarDays, CalendarPlus, FileHeart, Users } from "lucide-react";
 import welcomeImg from "@/assets/patient-welcome.jpg";
 import { useComingSoon } from "@/components/home/coming-soon";
+import { DIRECTORY_DEFAULTS } from "@/data/directory-search";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { futureTarget, patientNav } from "@/config/patient-navigation";
@@ -72,7 +73,7 @@ function WelcomeBanner() {
             Manage your appointments, book new visits, and access your health information.
           </p>
           <Button asChild size="lg" className="mt-5 h-12 w-full px-6 text-base sm:w-auto">
-            <Link to="/hospitals" search={{}}>
+            <Link to="/hospitals" search={DIRECTORY_DEFAULTS}>
               <CalendarPlus className="h-5 w-5" aria-hidden /> Book Appointment
             </Link>
           </Button>
@@ -115,7 +116,7 @@ function PatientQuickActions() {
       </h2>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <li>
-          <Link to="/hospitals" search={{}} className={cardCls}>
+          <Link to="/hospitals" search={DIRECTORY_DEFAULTS} className={cardCls}>
             {body(CalendarPlus, "Book Appointment", "Find a hospital, choose a department and explore available appointments.")}
           </Link>
         </li>
