@@ -7,7 +7,6 @@ import { MOCK_DOCTORS, type DemoDoctor } from "./hospital-details";
 
 export const ADDIS_TZ = "Africa/Addis_Ababa";
 const ADDIS_OFFSET_HOURS = 3;
-const DAY_MS = 86_400_000;
 
 /** Calendar date (year, month, day) in Addis Ababa for an instant. */
 export function addisDateParts(now: Date) {
@@ -234,4 +233,3 @@ export function measurementSource(visitId: string, now: Date) {
   return { date: visit.date, source: `${group.hospital.name} · ${visit.department}` };
 }
 
-export const DAY = DAY_MS;
