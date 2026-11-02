@@ -193,7 +193,7 @@ export function buildAppointments(now: Date): Appointment[] {
       note: e.note,
       at: "minutesAgo" in e ? new Date(now.getTime() - e.minutesAgo * 60_000) : new Date(when.getTime() + e.apptOffsetMin * 60_000),
     }));
-    const resched = history.findLast((e) => e.status === "Rescheduled");
+    const resched = [...history].reverse().find((e) => e.status === "Rescheduled");
     return {
       id: s.id,
       bookingReference: s.bookingReference,
