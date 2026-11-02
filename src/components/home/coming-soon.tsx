@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, type ReactNode } from "react";
+import { createContext, useCallback, useContext, useRef, useState, type ReactNode } from "react";
 import { Construction } from "lucide-react";
 import { Link } from "@tanstack/react-router";
 import {
@@ -30,11 +30,26 @@ const Ctx = createContext<(t: NavTarget) => void>(() => {});
 
 export function ComingSoonProvider({ children }: { children: ReactNode }) {
   const [target, setTarget] = useState<NavTarget | null>(null);
+  // The notice has no Radix trigger, so remember what opened it and return focus there.
+  const returnFocus = useRef<HTMLElement | null>(null);
+  const open = useCallback((t: NavTarget) => {
+    returnFocus.current = document.activeElement instanceof HTMLElement ? document.activeElement : null;
+    setTarget(t);
+  }, []);
   return (
-    <Ctx.Provider value={setTarget}>
+    <Ctx.Provider value={open}>
       {children}
       <Dialog open={!!target} onOpenChange={(o) => !o && setTarget(null)}>
-        <DialogContent>
+        <DialogContent
+          onCloseAutoFocus={(e) => {
+            const el = returnFocus.current;
+            returnFocus.current = null;
+            if (el?.isConnected) {
+              e.preventDefault();
+              el.focus();
+            }
+          }}
+        >
           <DialogHeader>
             <div className="mb-2 grid h-11 w-11 place-items-center rounded-full bg-accent text-primary">
               <Construction className="h-5 w-5" aria-hidden />
