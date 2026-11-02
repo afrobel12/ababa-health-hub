@@ -78,9 +78,18 @@ export const formatDob = (dob: string) =>
 
 // ---------------------------------------------------------------------------
 // Appointments
+// This is the ONE fictional appointment dataset. P-01 and P-02 both read it
+// through PatientAppointmentsProvider; changes made there are memory-only.
 
 export type AppointmentStatus = "Booked" | "Checked In" | "Completed" | "Cancelled" | "Rescheduled" | "No-show";
-const ACTIVE_STATUSES: AppointmentStatus[] = ["Booked", "Rescheduled", "Checked In"];
+export const APPOINTMENT_STATUSES: readonly AppointmentStatus[] = ["Booked", "Checked In", "Completed", "Cancelled", "Rescheduled", "No-show"];
+/** Statuses that still represent a live booking (when the time is in the future). */
+export const ACTIVE_STATUSES: readonly AppointmentStatus[] = ["Booked", "Rescheduled", "Checked In"];
+
+export type StatusEvent = { status: AppointmentStatus; at: Date; note: string };
+
+/** Event timing: minutes relative to the appointment time, or minutes before `now`. */
+type EventSeed = { status: AppointmentStatus; note: string } & ({ apptOffsetMin: number } | { minutesAgo: number });
 
 type AppointmentSeed = {
   id: string;
@@ -92,16 +101,69 @@ type AppointmentSeed = {
   hh: number;
   mm: number;
   status: AppointmentStatus;
+  reasonForVisit?: string;
+  /** Original slot for seeds that were already rescheduled. */
+  rescheduledFrom?: { dayOffset: number; hh: number; mm: number };
+  cancellationReason?: string;
+  events: EventSeed[];
 };
 
+const CREATED = "Demonstration appointment created in this prototype.";
+
 const APPOINTMENT_SEEDS: AppointmentSeed[] = [
-  { id: "a1", bookingReference: "DEMO-APT-1042", hospitalId: "h01", department: "Cardiology", doctorId: "h01-doctor-2", dayOffset: 3, hh: 9, mm: 30, status: "Booked" },
-  { id: "a2", bookingReference: "DEMO-APT-1057", hospitalId: "h05", department: "General Medicine", dayOffset: 9, hh: 14, mm: 0, status: "Rescheduled" },
-  { id: "a3", bookingReference: "DEMO-APT-1063", hospitalId: "h03", department: "Orthopedics", doctorId: "h03-doctor-3", dayOffset: 21, hh: 10, mm: 15, status: "Booked" },
-  { id: "a4", bookingReference: "DEMO-APT-0988", hospitalId: "h01", department: "General Medicine", dayOffset: -45, hh: 11, mm: 0, status: "Completed" },
-  { id: "a5", bookingReference: "DEMO-APT-0941", hospitalId: "h05", department: "Emergency Care", dayOffset: -120, hh: 16, mm: 45, status: "Completed" },
-  { id: "a6", bookingReference: "DEMO-APT-1011", hospitalId: "h03", department: "Surgery", dayOffset: -30, hh: 8, mm: 30, status: "Cancelled" },
-  { id: "a7", bookingReference: "DEMO-APT-0967", hospitalId: "h02", department: "General Medicine", dayOffset: -75, hh: 13, mm: 0, status: "No-show" },
+  {
+    id: "a1", bookingReference: "DEMO-APT-1042", hospitalId: "h01", department: "Cardiology", doctorId: "h01-doctor-2",
+    dayOffset: 3, hh: 9, mm: 30, status: "Booked", reasonForVisit: "Routine follow-up consultation",
+    events: [{ status: "Booked", minutesAgo: 60 * 24 * 12, note: CREATED }],
+  },
+  {
+    id: "a2", bookingReference: "DEMO-APT-1057", hospitalId: "h05", department: "General Medicine",
+    dayOffset: 9, hh: 14, mm: 0, status: "Rescheduled", reasonForVisit: "Routine check-up and general consultation",
+    rescheduledFrom: { dayOffset: 6, hh: 11, mm: 0 },
+    events: [
+      { status: "Booked", minutesAgo: 60 * 24 * 20, note: CREATED },
+      { status: "Rescheduled", minutesAgo: 60 * 24 * 3, note: "Moved to a new demonstration date and time." },
+    ],
+  },
+  {
+    id: "a3", bookingReference: "DEMO-APT-1063", hospitalId: "h03", department: "Orthopedics", doctorId: "h03-doctor-3",
+    dayOffset: 21, hh: 10, mm: 15, status: "Booked",
+    events: [{ status: "Booked", minutesAgo: 95, note: CREATED }],
+  },
+  {
+    id: "a4", bookingReference: "DEMO-APT-0988", hospitalId: "h01", department: "General Medicine",
+    dayOffset: -45, hh: 11, mm: 0, status: "Completed", reasonForVisit: "General consultation",
+    events: [
+      { status: "Booked", apptOffsetMin: -60 * 24 * 10, note: CREATED },
+      { status: "Checked In", apptOffsetMin: -20, note: "Marked as checked in on the demonstration record." },
+      { status: "Completed", apptOffsetMin: 40, note: "Visit marked as completed on the demonstration record." },
+    ],
+  },
+  {
+    id: "a5", bookingReference: "DEMO-APT-0941", hospitalId: "h05", department: "Emergency Care",
+    dayOffset: -120, hh: 16, mm: 45, status: "Completed",
+    events: [
+      { status: "Booked", apptOffsetMin: -120, note: CREATED },
+      { status: "Checked In", apptOffsetMin: -10, note: "Marked as checked in on the demonstration record." },
+      { status: "Completed", apptOffsetMin: 120, note: "Visit marked as completed on the demonstration record." },
+    ],
+  },
+  {
+    id: "a6", bookingReference: "DEMO-APT-1011", hospitalId: "h03", department: "Surgery",
+    dayOffset: -30, hh: 8, mm: 30, status: "Cancelled", cancellationReason: "Cancelled by the patient in the demonstration.",
+    events: [
+      { status: "Booked", apptOffsetMin: -60 * 24 * 14, note: CREATED },
+      { status: "Cancelled", apptOffsetMin: -60 * 24 * 3, note: "Cancelled by the patient in the demonstration." },
+    ],
+  },
+  {
+    id: "a7", bookingReference: "DEMO-APT-0967", hospitalId: "h02", department: "General Medicine",
+    dayOffset: -75, hh: 13, mm: 0, status: "No-show",
+    events: [
+      { status: "Booked", apptOffsetMin: -60 * 24 * 7, note: CREATED },
+      { status: "No-show", apptOffsetMin: 180, note: "Recorded as not attended on the demonstration record." },
+    ],
+  },
 ];
 
 export type Appointment = {
@@ -115,23 +177,45 @@ export type Appointment = {
   doctor?: DemoDoctor | undefined;
   appointmentDateTime: Date;
   status: AppointmentStatus;
+  createdAt: Date;
+  reasonForVisit?: string | undefined;
+  statusHistory: StatusEvent[];
+  cancellationReason?: string | undefined;
+  rescheduledFrom?: Date | undefined;
+  rescheduledAt?: Date | undefined;
 };
 
 export function buildAppointments(now: Date): Appointment[] {
-  return APPOINTMENT_SEEDS.map((s) => ({
-    id: s.id,
-    bookingReference: s.bookingReference,
-    patientId: MOCK_PATIENT.id,
-    hospitalId: s.hospitalId,
-    hospital: hospitalById(s.hospitalId),
-    department: s.department,
-    doctorId: s.doctorId,
-    doctor: s.doctorId ? doctorById(s.doctorId) : undefined,
-    appointmentDateTime: addisDateTime(now, s.dayOffset, s.hh, s.mm),
-    status: s.status,
-  }));
+  return APPOINTMENT_SEEDS.map((s) => {
+    const when = addisDateTime(now, s.dayOffset, s.hh, s.mm);
+    const history = s.events.map((e) => ({
+      status: e.status,
+      note: e.note,
+      at: "minutesAgo" in e ? new Date(now.getTime() - e.minutesAgo * 60_000) : new Date(when.getTime() + e.apptOffsetMin * 60_000),
+    }));
+    const resched = [...history].reverse().find((e) => e.status === "Rescheduled");
+    return {
+      id: s.id,
+      bookingReference: s.bookingReference,
+      patientId: MOCK_PATIENT.id,
+      hospitalId: s.hospitalId,
+      hospital: hospitalById(s.hospitalId),
+      department: s.department,
+      doctorId: s.doctorId,
+      doctor: s.doctorId ? doctorById(s.doctorId) : undefined,
+      appointmentDateTime: when,
+      status: s.status,
+      createdAt: history[0]!.at,
+      reasonForVisit: s.reasonForVisit,
+      statusHistory: history,
+      cancellationReason: s.cancellationReason,
+      rescheduledFrom: s.rescheduledFrom ? addisDateTime(now, s.rescheduledFrom.dayOffset, s.rescheduledFrom.hh, s.rescheduledFrom.mm) : undefined,
+      rescheduledAt: resched?.at,
+    };
+  });
 }
 
+/** Active (Booked / Rescheduled / Checked In) and scheduled in the future. */
 export const isUpcoming = (a: Appointment, now: Date) =>
   a.appointmentDateTime.getTime() > now.getTime() && ACTIVE_STATUSES.includes(a.status);
 
@@ -139,7 +223,8 @@ export function appointmentSummary(list: Appointment[], now: Date) {
   const upcoming = list
     .filter((a) => isUpcoming(a, now))
     .sort((a, b) => a.appointmentDateTime.getTime() - b.appointmentDateTime.getTime());
-  const past = list.filter((a) => a.appointmentDateTime.getTime() <= now.getTime());
+  // Everything no longer active is history, including cancelled future slots.
+  const past = list.filter((a) => !isUpcoming(a, now));
   return { upcoming, past, next: upcoming[0] ?? null };
 }
 
