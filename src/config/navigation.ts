@@ -1,6 +1,6 @@
 // Central list of public routes. `implemented: false` routes open the
 // "coming soon" notice instead of navigating, until those pages are built.
-export type NavTarget = { label: string; href: string; implemented: boolean; hash?: string };
+export type NavTarget = { label: string; href: string; implemented: boolean; hash?: string; notice?: string };
 
 export const routes = {
   home: { label: "Home", href: "/", implemented: true },
