@@ -230,6 +230,6 @@ export function measurementSource(visitId: string, now: Date) {
   const group = buildMedicalHistory(now).find((g) => g.visits.some((v) => v.id === visitId));
   const visit = group?.visits.find((v) => v.id === visitId);
   if (!group || !visit || visit.access !== "available") return null;
-  return { date: visit.date, source: `${group.hospital.name} · ${visit.department}` };
+  return { date: visit.date, source: group.hospital.name };
 }
 

@@ -114,7 +114,7 @@ function PatientQuickActions() {
       <h2 id="quick-actions-heading" className="sr-only">
         Quick actions
       </h2>
-      <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
+      <ul className="grid gap-3 sm:grid-cols-2 min-[1400px]:grid-cols-4">
         <li>
           <Link to="/hospitals" search={DIRECTORY_DEFAULTS} className={cardCls}>
             {body(CalendarPlus, "Book Appointment", "Find a hospital, choose a department and explore available appointments.")}

@@ -12,7 +12,7 @@ export function PatientProfileSummary({ now }: { now: Date }) {
     const src = measurementSource(m.visitId, now);
     return {
       value: `${m.value} ${m.unit}`,
-      note: src ? `Measured ${formatShortDate(src.date)} · ${src.source}` : undefined,
+      note: src ? `Measured ${formatShortDate(src.date)} at ${src.source}` : undefined,
     };
   };
   const rows: { term: string; value: string; note?: string | undefined }[] = [
