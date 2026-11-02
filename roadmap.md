@@ -1,5 +1,12 @@
 # Roadmap
 
+## Done: Phase 2 P-01 — Patient Workspace Shell & Dashboard (frontend only)
+- [x] `/patient` layout (sidebar, header, bell, account menu, mobile bottom nav + More) and dashboard leaf
+- [x] Synthetic patient, appointments, notifications and hospital-grouped medical history
+- [x] Login Patient demo preview opens `/patient`; other roles unchanged
+- [x] 13 new tests (102 total); eight widths, no overflow; menu/notice focus return checked
+- Deferred: P-02 Appointments, P-03 Booking, P-04 Medical History, P-05 Dependents, P-06 Notifications, P-07 Profile
+
 ## Done: Screen 07 — Hospital Application & Supporting Pages (frontend only)
 - [x] /for-hospitals landing (hero, capabilities, onboarding, eligibility, FAQ, CTA)
 - [x] /for-hospitals/apply four-step wizard (hospital, representative, review, demo complete)
