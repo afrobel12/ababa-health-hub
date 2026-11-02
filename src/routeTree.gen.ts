@@ -15,12 +15,14 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ForgotPasswordRouteImport } from './routes/forgot-password'
 import { Route as HospitalsRouteImport } from './routes/hospitals'
 import { Route as LoginRouteImport } from './routes/login'
+import { Route as PatientRouteImport } from './routes/patient'
 import { Route as PrivacyRouteImport } from './routes/privacy'
 import { Route as RegisterRouteImport } from './routes/register'
 import { Route as TermsRouteImport } from './routes/terms'
 import { Route as ForHospitalsIndexRouteImport } from './routes/for-hospitals.index'
 import { Route as ForHospitalsApplyRouteImport } from './routes/for-hospitals.apply'
 import { Route as HospitalsSlugRouteImport } from './routes/hospitals_.$slug'
+import { Route as PatientIndexRouteImport } from './routes/patient.index'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -50,6 +52,11 @@ const HospitalsRoute = HospitalsRouteImport.update({
 const LoginRoute = LoginRouteImport.update({
   id: '/login',
   path: '/login',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PatientRoute = PatientRouteImport.update({
+  id: '/patient',
+  path: '/patient',
   getParentRoute: () => rootRouteImport,
 } as any)
 const PrivacyRoute = PrivacyRouteImport.update({
@@ -82,6 +89,11 @@ const HospitalsSlugRoute = HospitalsSlugRouteImport.update({
   path: '/hospitals/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const PatientIndexRoute = PatientIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => PatientRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -90,12 +102,14 @@ export interface FileRoutesByFullPath {
   '/forgot-password': typeof ForgotPasswordRoute
   '/hospitals': typeof HospitalsRoute
   '/login': typeof LoginRoute
+  '/patient': typeof PatientRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
   '/terms': typeof TermsRoute
   '/for-hospitals/apply': typeof ForHospitalsApplyRoute
   '/hospitals/$slug': typeof HospitalsSlugRoute
   '/for-hospitals/': typeof ForHospitalsIndexRoute
+  '/patient/': typeof PatientIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +124,7 @@ export interface FileRoutesByTo {
   '/for-hospitals/apply': typeof ForHospitalsApplyRoute
   '/hospitals/$slug': typeof HospitalsSlugRoute
   '/for-hospitals': typeof ForHospitalsIndexRoute
+  '/patient': typeof PatientIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -119,12 +134,14 @@ export interface FileRoutesById {
   '/forgot-password': typeof ForgotPasswordRoute
   '/hospitals': typeof HospitalsRoute
   '/login': typeof LoginRoute
+  '/patient': typeof PatientRouteWithChildren
   '/privacy': typeof PrivacyRoute
   '/register': typeof RegisterRoute
   '/terms': typeof TermsRoute
   '/for-hospitals/apply': typeof ForHospitalsApplyRoute
   '/hospitals_/$slug': typeof HospitalsSlugRoute
   '/for-hospitals/': typeof ForHospitalsIndexRoute
+  '/patient/': typeof PatientIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -135,12 +152,14 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/hospitals'
     | '/login'
+    | '/patient'
     | '/privacy'
     | '/register'
     | '/terms'
     | '/for-hospitals/apply'
     | '/hospitals/$slug'
     | '/for-hospitals/'
+    | '/patient/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +174,7 @@ export interface FileRouteTypes {
     | '/for-hospitals/apply'
     | '/hospitals/$slug'
     | '/for-hospitals'
+    | '/patient'
   id:
     | '__root__'
     | '/'
@@ -163,12 +183,14 @@ export interface FileRouteTypes {
     | '/forgot-password'
     | '/hospitals'
     | '/login'
+    | '/patient'
     | '/privacy'
     | '/register'
     | '/terms'
     | '/for-hospitals/apply'
     | '/hospitals_/$slug'
     | '/for-hospitals/'
+    | '/patient/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -178,6 +200,7 @@ export interface RootRouteChildren {
   ForgotPasswordRoute: typeof ForgotPasswordRoute
   HospitalsRoute: typeof HospitalsRoute
   LoginRoute: typeof LoginRoute
+  PatientRoute: typeof PatientRouteWithChildren
   PrivacyRoute: typeof PrivacyRoute
   RegisterRoute: typeof RegisterRoute
   TermsRoute: typeof TermsRoute
@@ -230,6 +253,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/patient': {
+      id: '/patient'
+      path: '/patient'
+      fullPath: '/patient'
+      preLoaderRoute: typeof PatientRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/privacy': {
       id: '/privacy'
       path: '/privacy'
@@ -272,8 +302,26 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof HospitalsSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/patient/': {
+      id: '/patient/'
+      path: '/'
+      fullPath: '/patient/'
+      preLoaderRoute: typeof PatientIndexRouteImport
+      parentRoute: typeof PatientRoute
+    }
   }
 }
+
+interface PatientRouteChildren {
+  PatientIndexRoute: typeof PatientIndexRoute
+}
+
+const PatientRouteChildren: PatientRouteChildren = {
+  PatientIndexRoute: PatientIndexRoute,
+}
+
+const PatientRouteWithChildren =
+  PatientRoute._addFileChildren(PatientRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -282,6 +330,7 @@ const rootRouteChildren: RootRouteChildren = {
   ForgotPasswordRoute: ForgotPasswordRoute,
   HospitalsRoute: HospitalsRoute,
   LoginRoute: LoginRoute,
+  PatientRoute: PatientRouteWithChildren,
   PrivacyRoute: PrivacyRoute,
   RegisterRoute: RegisterRoute,
   TermsRoute: TermsRoute,
