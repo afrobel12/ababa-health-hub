@@ -72,7 +72,7 @@ function WelcomeBanner() {
             Manage your appointments, book new visits, and access your health information.
           </p>
           <Button asChild size="lg" className="mt-5 h-12 w-full px-6 text-base sm:w-auto">
-            <Link to="/hospitals">
+            <Link to="/hospitals" search={{}}>
               <CalendarPlus className="h-5 w-5" aria-hidden /> Book Appointment
             </Link>
           </Button>
@@ -115,7 +115,7 @@ function PatientQuickActions() {
       </h2>
       <ul className="grid gap-3 sm:grid-cols-2 xl:grid-cols-4">
         <li>
-          <Link to="/hospitals" className={cardCls}>
+          <Link to="/hospitals" search={{}} className={cardCls}>
             {body(CalendarPlus, "Book Appointment", "Find a hospital, choose a department and explore available appointments.")}
           </Link>
         </li>

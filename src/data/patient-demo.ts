@@ -111,8 +111,8 @@ export type Appointment = {
   hospitalId: string;
   hospital: Hospital;
   department: string;
-  doctorId?: string;
-  doctor?: DemoDoctor;
+  doctorId?: string | undefined;
+  doctor?: DemoDoctor | undefined;
   appointmentDateTime: Date;
   status: AppointmentStatus;
 };
@@ -154,7 +154,7 @@ export type PatientNotification = {
   category: NotificationCategory;
   createdAt: Date;
   read: boolean;
-  appointmentId?: string;
+  appointmentId?: string | undefined;
 };
 
 type NotificationSeed = { id: string; category: NotificationCategory; minutesAgo: number; read: boolean; appointmentId?: string };

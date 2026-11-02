@@ -58,7 +58,7 @@ export function NextAppointmentCard({ next }: { next: Appointment | null }) {
           <h3 className="mt-3 font-display font-bold text-navy">No upcoming appointments</h3>
           <p className="mt-1 text-sm text-muted-foreground">You don't have any demonstration appointments scheduled.</p>
           <Button asChild className="mt-4">
-            <Link to="/hospitals">Find Hospitals</Link>
+            <Link to="/hospitals" search={{}}>Find Hospitals</Link>
           </Button>
         </div>
       </DashboardCard>

@@ -15,7 +15,7 @@ export function PatientProfileSummary({ now }: { now: Date }) {
       note: src ? `Measured ${formatShortDate(src.date)} · ${src.source}` : undefined,
     };
   };
-  const rows: { term: string; value: string; note?: string }[] = [
+  const rows: { term: string; value: string; note?: string | undefined }[] = [
     { term: "Full name", value: fullName(p) },
     { term: "Date of birth", value: formatDob(p.dateOfBirth) },
     { term: "Age", value: `${ageFromDob(p.dateOfBirth, now)} years` },
