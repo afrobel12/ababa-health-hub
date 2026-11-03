@@ -1,10 +1,11 @@
 import type { AppointmentStatus, RecordAccess } from "@/data/patient-demo";
 import { cn } from "@/lib/utils";
 
-const STATUS_CLS: Record<AppointmentStatus, string> = {
-  Booked: "border-primary/20 bg-accent text-primary",
-  "Checked In": "border-teal/30 bg-teal-soft text-teal",
-  Completed: "border-border bg-muted text-muted-foreground",
+// One status palette for the dashboard, list, details and history timeline.
+export const STATUS_CLS: Record<AppointmentStatus, string> = {
+  Booked: "border-success-border bg-success-soft text-success",
+  "Checked In": "border-primary/20 bg-accent text-primary",
+  Completed: "border-teal/30 bg-teal-soft text-teal",
   Cancelled: "border-destructive/30 bg-destructive/10 text-destructive",
   Rescheduled: "border-warning-border bg-warning-soft text-warning",
   "No-show": "border-border bg-muted text-muted-foreground",

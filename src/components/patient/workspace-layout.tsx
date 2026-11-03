@@ -1,5 +1,6 @@
 import type { ReactNode } from "react";
 import { ComingSoonProvider } from "@/components/home/coming-soon";
+import { PatientAppointmentsProvider } from "./appointments-provider";
 import { PatientDemoIndicator, PatientTopHeader } from "./workspace-header";
 import { PatientMobileBottomNav, PatientSidebar } from "./workspace-nav";
 
@@ -7,6 +8,7 @@ import { PatientMobileBottomNav, PatientSidebar } from "./workspace-nav";
 export function PatientWorkspaceLayout({ children }: { children: ReactNode }) {
   return (
     <ComingSoonProvider>
+      <PatientAppointmentsProvider>
       <div className="min-h-screen bg-sky">
         <PatientSidebar />
         <div className="flex min-h-screen min-w-0 flex-col lg:pl-64">
@@ -21,6 +23,7 @@ export function PatientWorkspaceLayout({ children }: { children: ReactNode }) {
         </div>
         <PatientMobileBottomNav />
       </div>
+      </PatientAppointmentsProvider>
     </ComingSoonProvider>
   );
 }

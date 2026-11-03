@@ -6,6 +6,7 @@ import { useComingSoon } from "@/components/home/coming-soon";
 import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
   futureTarget,
+  isPatientNavActive,
   patientBottomNav,
   patientMoreNav,
   patientPrimaryNav,
@@ -16,7 +17,7 @@ import { cn } from "@/lib/utils";
 import { useDeferredNotice } from "./use-deferred-notice";
 
 const usePathname = () => useRouterState({ select: (s) => s.location.pathname.replace(/\/$/, "") || "/" });
-const isItemActive = (item: PatientNavItem, pathname: string) => item.to === "/patient" && pathname === "/patient";
+const isItemActive = isPatientNavActive;
 
 const sidebarItemCls = (active: boolean) =>
   cn(
