@@ -1,5 +1,5 @@
 // Single source for Patient Portal navigation (desktop sidebar, mobile bottom
-// bar, More menu, header label). Only Dashboard is built; Find Hospitals reuses
+// bar, More menu, header label). Dashboard and Appointments are built; Find Hospitals reuses
 // the public directory; every other item opens the future-page notice.
 import {
   Bell,
@@ -23,7 +23,7 @@ export type PatientNavItem = {
   label: string;
   icon: LucideIcon;
   /** Built destination. Absent = future page (shows the notice). */
-  to?: "/patient" | "/hospitals";
+  to?: "/patient" | "/patient/appointments" | "/hospitals";
   /** Planned path, kept here for later screens. */
   plannedPath: string;
   mobileLabel?: string;
@@ -34,7 +34,7 @@ const item = (i: PatientNavItem) => i;
 
 export const patientNav = {
   dashboard: item({ id: "dashboard", label: "Dashboard", icon: LayoutDashboard, to: "/patient", plannedPath: "/patient", mobileLabel: "Home", mobileIcon: House }),
-  appointments: item({ id: "appointments", label: "Appointments", icon: CalendarDays, plannedPath: "/patient/appointments", mobileLabel: "Visits" }),
+  appointments: item({ id: "appointments", label: "Appointments", icon: CalendarDays, to: "/patient/appointments", plannedPath: "/patient/appointments", mobileLabel: "Visits" }),
   findHospitals: item({ id: "find", label: "Find Hospitals", icon: Search, to: "/hospitals", plannedPath: "/hospitals", mobileLabel: "Find" }),
   medicalHistory: item({ id: "history", label: "Medical History", icon: FileHeart, plannedPath: "/patient/medical-history", mobileLabel: "Records" }),
   dependents: item({ id: "dependents", label: "Dependents", icon: Users, plannedPath: "/patient/dependents" }),
@@ -76,5 +76,11 @@ export const futureTarget = (label: string, plannedPath = "/patient", notice = P
   notice,
 });
 
-export const pageLabelFor = (pathname: string) =>
-  patientPrimaryNav.find((n) => n.to && n.to === pathname.replace(/\/$/, ""))?.label ?? "Dashboard";
+/** Exact match for the dashboard; other items also own their sub-pages (e.g. /patient/appointments/a1). */
+export const isPatientNavActive = (item: PatientNavItem, pathname: string) => {
+  const p = pathname.replace(/\/$/, "") || "/";
+  if (!item.to || item.to === "/hospitals") return false;
+  return item.to === "/patient" ? p === "/patient" : p === item.to || p.startsWith(`${item.to}/`);
+};
+
+export const pageLabelFor = (pathname: string) => patientPrimaryNav.find((n) => isPatientNavActive(n, pathname))?.label ?? "Dashboard";
