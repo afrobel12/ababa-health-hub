@@ -17,6 +17,9 @@ import {
 import { cn } from "@/lib/utils";
 import { DashboardCard } from "./dashboard-card";
 import { StatusBadge } from "./status-badge";
+import { usePatientAppointments } from "./appointments-provider";
+import { RescheduleAppointmentDialog } from "./appointment-dialogs";
+import { managementEligibility } from "@/data/patient-appointments";
 
 type Summary = ReturnType<typeof appointmentSummary>;
 
@@ -50,7 +53,7 @@ function Stat({ icon, label, value }: { icon: ReactNode; label: string; value: n
 }
 
 export function NextAppointmentCard({ next }: { next: Appointment | null }) {
-  const open = useComingSoon();
+  const { now } = usePatientAppointments();
   if (!next) {
     return (
       <DashboardCard id="next-appt-heading" title="Next Appointment">
@@ -97,24 +100,16 @@ export function NextAppointmentCard({ next }: { next: Appointment | null }) {
             Booking reference: <span className="font-mono font-medium text-foreground">{next.bookingReference}</span>
           </p>
           <div className="flex flex-wrap gap-2 pt-2">
-            <Button variant="outline" onClick={() => open(futureTarget("Appointment Details", patientNav.appointments.plannedPath))}>
-              View Details
+            <Button asChild variant="outline">
+              <Link to="/patient/appointments/$id" params={{ id: next.id }}>View Details</Link>
             </Button>
-            <Button
-              variant="ghost"
-              className="text-primary"
-              onClick={() =>
-                open(
-                  futureTarget(
-                    "Reschedule",
-                    patientNav.appointments.plannedPath,
-                    "Rescheduling will be available in a future design phase. This demonstration appointment has not been changed.",
-                  ),
-                )
-              }
-            >
-              Reschedule
-            </Button>
+            {now && managementEligibility(next, now).allowed && (
+              <RescheduleAppointmentDialog
+                appointment={next}
+                fallbackFocusId="next-appt-heading"
+                trigger={<Button variant="ghost" className="text-primary">Reschedule</Button>}
+              />
+            )}
           </div>
         </div>
       </div>
@@ -123,15 +118,14 @@ export function NextAppointmentCard({ next }: { next: Appointment | null }) {
 }
 
 export function UpcomingAppointmentsPreview({ upcoming }: { upcoming: Appointment[] }) {
-  const open = useComingSoon();
   const items = upcoming.slice(0, 3);
   return (
     <DashboardCard
       id="upcoming-heading"
       title="Upcoming Appointments"
       action={
-        <Button variant="link" className="h-auto p-0" onClick={() => open(futureTarget("Appointments", patientNav.appointments.plannedPath))}>
-          View All
+        <Button asChild variant="link" className="h-auto p-0">
+          <Link to="/patient/appointments">View All</Link>
         </Button>
       }
     >
@@ -142,7 +136,7 @@ export function UpcomingAppointmentsPreview({ upcoming }: { upcoming: Appointmen
           {items.map((a) => (
             <li key={a.id} data-testid="upcoming-item" className="flex flex-col gap-2 py-3 first:pt-0 last:pb-0 sm:flex-row sm:items-center sm:justify-between">
               <div className="min-w-0">
-                <p className="font-semibold text-foreground">{a.hospital.name}</p>
+                <Link to="/patient/appointments/$id" params={{ id: a.id }} className="font-semibold text-foreground hover:text-primary hover:underline">{a.hospital.name}</Link>
                 <p className="text-sm text-muted-foreground">{a.department}</p>
               </div>
               <div className="flex flex-wrap items-center gap-x-4 gap-y-1 text-sm">

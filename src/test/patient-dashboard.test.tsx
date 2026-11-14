@@ -45,9 +45,9 @@ describe("patient navigation", () => {
     expect(patientBottomNav.map((n) => n.mobileLabel)).toEqual(["Home", "Visits", "Find", "Records"]);
     expect(patientMoreNav.map((n) => n.label)).toEqual(["Dependents", "Notifications", "My Profile", "Settings", "Help & Support"]);
   });
-  it("only Dashboard and Find Hospitals navigate; the rest are future notices", () => {
+  it("Dashboard, Appointments and Find Hospitals navigate; the rest are future notices", () => {
     const built = patientPrimaryNav.filter((n) => n.to).map((n) => n.to);
-    expect(built).toEqual(["/patient", "/hospitals"]);
+    expect(built).toEqual(["/patient", "/patient/appointments", "/hospitals"]);
   });
 });
 
