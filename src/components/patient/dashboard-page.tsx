@@ -10,27 +10,25 @@ import { futureTarget, patientNav } from "@/config/patient-navigation";
 import {
   MOCK_PATIENT,
   appointmentSummary,
-  buildAppointments,
   buildMedicalHistory,
   buildNotifications,
 } from "@/data/patient-demo";
-import { useDemoNow } from "@/hooks/use-demo-now";
+import { usePatientAppointments } from "./appointments-provider";
 import { AppointmentOverview, RecentNotifications, UpcomingAppointmentsPreview } from "./appointment-sections";
 import { MedicalHistoryPreview } from "./medical-history-preview";
 import { PatientProfileSummary } from "./profile-summary";
 
 export function PatientDashboardPage() {
-  const now = useDemoNow();
+  const { now, appointments } = usePatientAppointments();
   const data = useMemo(() => {
-    if (!now) return null;
-    const appointments = buildAppointments(now);
+    if (!now || !appointments) return null;
     return {
       now,
       summary: appointmentSummary(appointments, now),
-      notifications: buildNotifications(now, appointments).slice(0, 3),
+      notifications: buildNotifications(now).slice(0, 3),
       history: buildMedicalHistory(now),
     };
-  }, [now]);
+  }, [now, appointments]);
 
   return (
     <div className="space-y-6">
@@ -121,9 +119,9 @@ function PatientQuickActions() {
           </Link>
         </li>
         <li>
-          <button type="button" className={cardCls} onClick={() => open(futureTarget("My Appointments", patientNav.appointments.plannedPath))}>
+          <Link to="/patient/appointments" className={cardCls}>
             {body(CalendarDays, "My Appointments", "Review and manage your upcoming appointments.")}
-          </button>
+          </Link>
         </li>
         <li>
           <button type="button" className={cardCls} onClick={() => open(futureTarget("Medical History", patientNav.medicalHistory.plannedPath))}>
